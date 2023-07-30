@@ -1,9 +1,11 @@
+## Global configs 
+These are needed to be installed on the machine. 
 - Python version 3.10.6
 - Postgres version 14 [psql (PostgreSQL) 14.8 (Ubuntu 14.8-0ubuntu0.22.04.1)]
 - Docker version 24.0.5, build ced0996 
 
 
-- Docker commands:
+## Docker commands:
   - docker build -t hrs_main_docker .   #builds our image gives it a name(tag= -t) 
   - docker run -dp 5000:5000 hrs_main_docker #initiates the container using the indicated image (in prod)
   - docker ps -a  #shows status of all containers
