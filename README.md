@@ -5,8 +5,9 @@
 
 - Docker commands:
   - docker build -t hrs_main_docker .   #builds our image gives it a name(tag= -t) 
-  - docker run -dp 5000:5000 hrs_main_docker #initiates the container using the indicated image
+  - docker run -dp 5000:5000 hrs_main_docker #initiates the container using the indicated image (in prod)
   - docker ps -a  #shows status of all containers
   - docker kill {hash of container}  #stops the container
   - docker start {hash of container}  #restarts the container
   - docker rm {hash of container}  #removes the container
+  - docker run -dp 5000:5000 -w /app -v "$(pwd):/app" hrs_main_docker     #run docker locally (in dev)
