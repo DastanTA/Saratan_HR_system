@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from db import db
 
 
@@ -14,6 +16,8 @@ class UserModel(db.Model):
     last_name = db.Column(db.String(50), nullable=False)
     basic_profession = db.Column(db.String(30), nullable=False) #специализация. В чем лучше разбирается
     notes = db.column(db.String(5000), nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     is_active = db.Column(db.Boolean, default=True, nullable=False)
 
     role_id = db.Column(db.Integer, db.ForeignKey("roles.id"), unique=False, nullable=False)
