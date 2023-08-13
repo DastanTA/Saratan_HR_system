@@ -16,3 +16,10 @@ These are needed to be installed on the machine.
   - **docker run -dp 5000:5000 -w /app -v "/c/Documents/yourproject:/app" hrs_main_docker**     
     - *[run docker locally on Windows(in dev)]*. 
     - > *Instead of /c/Documents/yourproject, use the path to your project (but remember to use /c/ instead of C:/)*.
+
+
+## Data base:
+ - usefull link to create user and db in postgres (commands): https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart
+ - database name: "hrs_db"
+ - postgres user to use the database: "hrs_db"
+ - password for "hrs_db" user: "hrs_db"
