@@ -27,6 +27,7 @@ class UserModel(db.Model):
     occupancy = db.relationship("OccupancyModel", back_populates="users")
     positions = db.relationship("PositionModel", back_populates="users", secondary="projects_positions_users")
     projects = db.relationship("ProjectModel", back_populates="users", secondary="projects_positions_users")
+    channels = db.relationship("ChannelModel", back_populates="manager", nullable=True)
 
     def __repr__(self):
         return f"<{self.first_name} {self.last_name}>"

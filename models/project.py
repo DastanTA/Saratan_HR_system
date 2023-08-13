@@ -18,6 +18,7 @@ class ProjectModel(db.Model):
     users = db.relationship("UserModel", back_populates="projects", secondary="projects_positions_users")
     project_type_id = db.Column(db.Integer, db.ForeignKey("project_types.id"), unique=False)
     project_type = db.relationship("ProjectTypeModel", back_populates="projects")
+    channels = db.relationship("ChannelModel", back_populates="project", nullable=True)
 
     def __repr__(self):
         return f"<{self.name}>"
