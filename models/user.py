@@ -24,7 +24,8 @@ class UserModel(db.Model):
     role = db.relationship("RoleModel", back_populates="users")
     occupancy_id = db.Column(db.Integer, db.ForeignKey("occupancies.id"), unique=False, nullable=False)
     occupancy = db.relationship("OccupancyModel", back_populates="users")
-    positions = db.relationship("PositionModel", back_populates="users", secondary="positions_users")
+    positions = db.relationship("PositionModel", back_populates="users", secondary="projects_positions_users")
+    projects = db.relationship("ProjectModel", back_populates="users", secondary="projects_positions_users")
 
     def __repr__(self):
         return f"<{self.first_name} {self.last_name}>"

@@ -4,7 +4,7 @@ from db import db
 
 
 class PositionsUsers(db.Model):
-    __tablename__ = "positions_users"
+    __tablename__ = "projects_positions_users"
 
     id = db.Column(db.Integer, primary_key=True)
 
