@@ -5,3 +5,4 @@ from models.projects_positions_users import ProjectsPositionsUsers
 from models.project import ProjectModel
 from models.position import PositionModel
 from models.project_type import ProjectTypeModel
+from models.channel import ChannelModel
