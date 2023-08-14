@@ -16,4 +16,4 @@ class RoleModel(db.Model):
     users = db.relationship("UserModel", back_populates="role", lazy="dynamic", cascade="all, delete-orphan")
 
     def __repr__(self):
-        return f"<{self.name}>"
+        return f"<Role: {self.name}>"

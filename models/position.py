@@ -16,4 +16,4 @@ class PositionModel(db.Model):
     users = db.relationship("UserModel", back_populates="positions", secondary="projects_positions_users")
 
     def __repr__(self):
-        return f"<{self.name}>"
+        return f"<Position: {self.name}>"
