@@ -22,4 +22,4 @@ class ChannelModel(db.Model):
     project = db.relationship("ProjectModel", back_populates="channels", lazy="dynamic")
 
     def __repr__(self):
-        return f"<{self.name}>"
+        return f"<Channel: {self.name}>"

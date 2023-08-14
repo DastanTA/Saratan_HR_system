@@ -30,4 +30,4 @@ class UserModel(db.Model):
     channels = db.relationship("ChannelModel", back_populates="manager", nullable=True)
 
     def __repr__(self):
-        return f"<{self.first_name} {self.last_name}>"
+        return f"<User: {self.first_name} {self.last_name}>"

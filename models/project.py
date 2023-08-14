@@ -21,4 +21,4 @@ class ProjectModel(db.Model):
     channels = db.relationship("ChannelModel", back_populates="project", nullable=True)
 
     def __repr__(self):
-        return f"<{self.name}>"
+        return f"<Project: {self.name}>"

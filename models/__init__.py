@@ -6,3 +6,4 @@ from models.project import ProjectModel
 from models.position import PositionModel
 from models.project_type import ProjectTypeModel
 from models.channel import ChannelModel
+from models.attendance import AttendanceModel

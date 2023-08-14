@@ -21,4 +21,4 @@ class ProjectTypeModel(db.Model):
     )
 
     def __repr__(self):
-        return f"<{self.name}>"
+        return f"<Project_type: {self.name}>"
