@@ -12,14 +12,15 @@ class ChannelModel(db.Model):
     description = db.Column(db.String(2000), nullable=True)
     url_address = db.Column(db.String(1000), unique=True)
     is_active = db.Column(db.Boolean, default=True)
+    is_deleted = db.Column(db.Boolean, default=False)
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    manager_id = db.Column(db.Integer, db.ForignKey("users.id"), unique=False)
-    manager = db.relationship("UserModel", back_populates="channels", lazy="dynamic")
-    project_id = db.Column(db.Integer, db.ForignKey("projects.id"), unique=False)
-    project = db.relationship("ProjectModel", back_populates="channels", lazy="dynamic")
+    manager_id = db.Column(db.Integer, db.ForeignKey("users.id"), unique=False)
+    manager = db.relationship("UserModel", back_populates="channels")
+    project_id = db.Column(db.Integer, db.ForeignKey("projects.id"), unique=False)
+    project = db.relationship("ProjectModel", back_populates="channels")
 
     def __repr__(self):
         return f"<Channel: {self.name}>"
