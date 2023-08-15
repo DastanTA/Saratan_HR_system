@@ -14,7 +14,8 @@ class PositionModel(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    users = db.relationship("UserModel", back_populates="positions", secondary="projects_positions_users")
+    users = db.relationship("UserModel", back_populates="positions", secondary="projects_positions_users",
+                            overlaps="users")
 
     def __repr__(self):
         return f"<Position: {self.name}>"
