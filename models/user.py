@@ -14,9 +14,11 @@ class UserModel(db.Model):
     first_name = db.Column(db.String(30))
     middle_name = db.Column(db.String(30))
     last_name = db.Column(db.String(50))
-    basic_profession = db.Column(db.String(30)) #специализация. В чем лучше разбирается
-    notes = db.column(db.String(5000), nullable=True)
+    # специализация. В чем лучше разбирается
+    basic_profession = db.Column(db.String(30))
+    notes = db.Column(db.String(5000), nullable=True)
     is_active = db.Column(db.Boolean, default=True)
+    is_deleted = db.Column(db.Boolean, default=False)
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -27,7 +29,7 @@ class UserModel(db.Model):
     occupancy = db.relationship("OccupancyModel", back_populates="users")
     positions = db.relationship("PositionModel", back_populates="users", secondary="projects_positions_users")
     projects = db.relationship("ProjectModel", back_populates="users", secondary="projects_positions_users")
-    channels = db.relationship("ChannelModel", back_populates="manager", nullable=True)
+    channels = db.relationship("ChannelModel", back_populates="manager")
 
     def __repr__(self):
         return f"<User: {self.first_name} {self.last_name}>"
