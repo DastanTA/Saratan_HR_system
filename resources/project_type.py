@@ -28,3 +28,7 @@ class CreateAndAllProjectType(MethodView):
         except SQLAlchemyError:
             abort(500, message="An error occurred while inserting the new project_type.")
         return project_type, 201
+
+    @blp.response(200, ProjectTypeSchema(many=True))
+    def get(self):
+        return ProjectTypeModel.query.filter(ProjectTypeModel.is_deleted == False).all()
