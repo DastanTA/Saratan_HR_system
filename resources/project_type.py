@@ -32,3 +32,13 @@ class CreateAndAllProjectType(MethodView):
     @blp.response(200, ProjectTypeSchema(many=True))
     def get(self):
         return ProjectTypeModel.query.filter(ProjectTypeModel.is_deleted == False).all()
+
+
+@blp.route("/project_type/<int:project_type_id>")
+class CreateAndAllProjectType(MethodView):
+    @blp.response(200, ProjectTypeSchema)
+    def get(self, project_type_id):
+        project_type = ProjectTypeModel.query.get_or_404(project_type_id)
+        if project_type.is_deleted:
+            abort(400, message="Этот тип проекта был удален. Обратитесь к суперадмину за деталями.")
+        return project_type
