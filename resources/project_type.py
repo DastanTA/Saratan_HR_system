@@ -81,3 +81,29 @@ class CreateAndAllProjectType(MethodView):
             message="Удалить тип проекта не смогли. "
                     "Удостоверьтесь что у данного типа нет привязанных проектов."
         )
+
+
+@blp.route("/project_type/hard_delete/<int:project_type_id>")
+class HardDeleteProjectType(MethodView):
+    @blp.response(
+        202,
+        description="Полностью удаляет запись из базы.",
+        example={"message": "тип проекта удален безвозвратно."}
+    )
+    @blp.alt_response(404, description="Тип проекта не найден.")
+    @blp.alt_response(400,
+                      description="Данный статус возвращается если тип проекта еще назначен на какой нибудь проект."
+                                  "В данном случае тип проекта нельзя удалять.")
+    def delete(self, project_type_id):
+        project_type = ProjectTypeModel.query.get_or_404(project_type_id)
+        name = project_type.name
+
+        if not project_type.projects:
+            db.session.delete(project_type)
+            db.session.commit()
+            return {"message": f"Тип проекта '{name}' удален безвозвратно."}
+        abort(
+            400,
+            message="Удалить тип проекта не смогли. "
+                    "Удостоверьтесь что у данного типа нет привязанных проектов."
+        )
