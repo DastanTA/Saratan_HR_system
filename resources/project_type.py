@@ -4,7 +4,7 @@ from flask_jwt_extended import jwt_required, get_jwt
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 from db import db
-from schemas import PlainProjectTypeSchema, ProjectTypeSchema
+from schemas import PlainProjectTypeSchema, ProjectTypeSchema, ProjectTypeUpdateSchema
 from models import ProjectTypeModel
 
 
@@ -41,4 +41,19 @@ class CreateAndAllProjectType(MethodView):
         project_type = ProjectTypeModel.query.get_or_404(project_type_id)
         if project_type.is_deleted:
             abort(400, message="Этот тип проекта был удален. Обратитесь к суперадмину за деталями.")
+        return project_type
+
+    @blp.arguments(ProjectTypeUpdateSchema)
+    @blp.response(200, ProjectTypeSchema)
+    def put(self, project_type_data, project_type_id):
+        project_type = ProjectTypeModel.query.get_or_404(project_type_id)
+        if project_type:
+            if project_type_data.get("name", None):
+                project_type.name = project_type_data["name"]
+            if project_type_data.get("description", None):
+                project_type.description = project_type_data["description"]
+        else:
+            project_type = ProjectTypeModel(id=project_type_id, **project_type_data)
+        db.session.add(project_type)
+        db.session.commit()
         return project_type
