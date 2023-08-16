@@ -82,6 +82,17 @@ class CreateAndAllProjectType(MethodView):
                     "Удостоверьтесь что у данного типа нет привязанных проектов."
         )
 
+    @blp.response(200, ProjectTypeSchema)
+    def post(self, project_type_id):
+        project_type = ProjectTypeModel.query.get_or_404(project_type_id)
+        if project_type.is_deleted:
+            project_type.is_deleted = False
+        else:
+            abort(400, message="Указанный вами тип проекта и так не был удален. Восстанавливать нечего.")
+        db.session.add(project_type)
+        db.session.commit()
+        return project_type
+
 
 @blp.route("/project_type/hard_delete/<int:project_type_id>")
 class HardDeleteProjectType(MethodView):
