@@ -17,7 +17,6 @@ class ProjectTypeModel(db.Model):
     projects = db.relationship(
         "ProjectModel",
         back_populates="project_type",
-        lazy="dynamic",
         cascade="all, delete-orphan"
     )
 

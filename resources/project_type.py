@@ -57,3 +57,27 @@ class CreateAndAllProjectType(MethodView):
         db.session.add(project_type)
         db.session.commit()
         return project_type
+
+    @blp.response(
+        202,
+        description="Помечает поле is_deleted как True - мягкое удаления. Запись не удаляется из бд",
+        example={"message": "тип проекта удален(мягко)."}
+    )
+    @blp.alt_response(404, description="Тип проекта не найден.")
+    @blp.alt_response(400,
+                      description="Данный статус возвращается если тип проекта еще назначен на какой нибудь проект."
+                                  "В данном случае тип проекта нельзя удалять.")
+    def delete(self, project_type_id):
+        project_type = ProjectTypeModel.query.get_or_404(project_type_id)
+        name = project_type.name
+
+        if not project_type.projects:
+            project_type.is_deleted = True
+            db.session.add(project_type)
+            db.session.commit()
+            return {"message": f"Тип проекта '{name}' удален(мягко)."}
+        abort(
+            400,
+            message="Удалить тип проекта не смогли. "
+                    "Удостоверьтесь что у данного типа нет привязанных проектов."
+        )
