@@ -12,7 +12,7 @@ class UserModel(db.Model):
     password = db.Column(db.String(300))
     phone = db.Column(db.Integer, unique=True, nullable=True)
     first_name = db.Column(db.String(30))
-    middle_name = db.Column(db.String(30))
+    middle_name = db.Column(db.String(30), nullable=True)
     last_name = db.Column(db.String(50))
     # специализация. В чем лучше разбирается
     basic_profession = db.Column(db.String(30))

@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from db import db
 
 from resources.project_type import blp as ProjectTypeBlueprint
+from resources.project import blp as ProjectBlueprint
 
 from models import UserModel
 
@@ -87,5 +88,6 @@ def create_app(db_url=None):
     #     )
 
     api.register_blueprint(ProjectTypeBlueprint)
+    api.register_blueprint(ProjectBlueprint)
 
     return app
