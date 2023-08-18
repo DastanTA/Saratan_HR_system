@@ -29,3 +29,15 @@ class GetAllAndCreateProject(MethodView):
     @blp.response(200, ProjectSchema(many=True))
     def get(self):
         return ProjectModel.query.filter(ProjectModel.is_deleted == False).all()
+
+
+@blp.route("/project/<int:project_id>")
+class GetUpdateDeleteRecoverSingleProject(MethodView):
+    @blp.response(200, ProjectSchema)
+    def get(self, project_id):
+        project = ProjectModel.query.get_or_404(project_id)
+
+        if project.is_deleted:
+            abort(404, message="Данный проект был удален. Обратитесь к администратору.")
+
+        return project
