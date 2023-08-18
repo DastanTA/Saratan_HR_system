@@ -61,4 +61,4 @@ class ProjectUpdateSchema(Schema):
     name = fields.Str(required=False)
     description = fields.Str(required=False)
     budget = fields.Int(required=False)
-    is_active = fields.Boolean(required=False, default=True)
+    is_active = fields.Boolean(required=False)
