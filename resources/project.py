@@ -25,3 +25,7 @@ class GetAllAndCreateProject(MethodView):
             abort(400, message=str(e))
 
         return project
+
+    @blp.response(200, ProjectSchema(many=True))
+    def get(self):
+        return ProjectModel.query.filter(ProjectModel.is_deleted == False).all()
