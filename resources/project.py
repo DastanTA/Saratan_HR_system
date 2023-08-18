@@ -50,14 +50,13 @@ class GetUpdateDeleteRecoverSingleProject(MethodView):
         if project.is_deleted:
             abort(404, message="Данный проект был удален. Обратитесь к администратору.")
 
-        if project_data.get("name"):
+        if project:
             project.name = project_data.get("name")
-        if project_data.get("description"):
             project.description = project_data.get("description")
-        if project_data.get("budget"):
             project.budget = project_data.get("budget")
-        if "is_active" in project_data:
             project.is_active = project_data.get("is_active")
+        else:
+            project = ProjectModel(id=project_id, **project_data)
 
         try:
             db.session.add(project)
