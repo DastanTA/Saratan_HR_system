@@ -55,3 +55,10 @@ class ProjectSchema(PlainProjectSchema):
     project_type_id = fields.Int(Load_only=True)
     project_type = fields.Nested(PlainProjectTypeSchema(), dump_only=True)
     channels = fields.List(fields.Nested(PlainChannelSchema()), dump_only=True)
+
+
+class ProjectUpdateSchema(Schema):
+    name = fields.Str(required=False)
+    description = fields.Str(required=False)
+    budget = fields.Int(required=False)
+    is_active = fields.Boolean(required=False, default=True)
