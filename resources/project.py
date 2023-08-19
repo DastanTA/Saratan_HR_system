@@ -65,3 +65,30 @@ class GetUpdateDeleteRecoverSingleProject(MethodView):
             abort(400, message=str(e))
 
         return project
+
+    @blp.response(
+        202,
+        description="Проект будет удален в мягкой форме, если будет найден и если не был уже удален.",
+        example={"message": "проект удален(мягко)"}
+    )
+    @blp.alt_response(404, description="Проект не найден")
+    @blp.alt_response(400, description="Данная ошибка возвращается, если у проекта есть не удаленные связи.")
+    def delete(self, project_id):
+        project = ProjectModel.query.get_or_404(project_id)
+        name = project.name
+
+        if project.is_deleted:
+            abort(400,
+                  message="Проект уже был удален. Обратитесь к администратору, если хоитете восстановить")
+
+        if not project.channels and not project.users:
+            project.is_deleted = True
+            try:
+                db.session.add(project)
+                db.session.commit()
+            except SQLAlchemyError as e:
+                abort(400, message=str(e))
+
+            return {"message": f"Проект '{name}' удален(мягко)."}
+
+        abort(400, message="Удалить проект не удалось. Убедитесь что нет активных связей.")
