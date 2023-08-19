@@ -55,6 +55,7 @@ class GetUpdateDeleteRecoverSingleProject(MethodView):
             project.description = project_data.get("description")
             project.budget = project_data.get("budget")
             project.is_active = project_data.get("is_active")
+            project.project_type_id = project_data.get("project_type_id")
         else:
             project = ProjectModel(id=project_id, **project_data)
 
@@ -128,23 +129,3 @@ class HardDeleteProject(MethodView):
             abort(400, message=str(e))
 
         return {"message": f'Проект "{name}" удален безвозвратно.'}
-
-
-@blp.route("/project/<int:project_id>/project_type/<int:project_type_id>")
-class LinkUnlinkProjectAndProjectType(MethodView):
-    @blp.response(200, ProjectSchema)
-    def post(self, project_id, project_type_id):
-        project_type = ProjectTypeModel.query.get_or_404(project_type_id)
-        project = ProjectModel.query.get_or_404(project_id)
-
-        if project.project_type_id:
-            abort(400, message="У проекта уже установлен тип. Сначала удалите действующий тип.")
-
-        project_type.projects.append(project)
-        try:
-            db.session.add(project_type)
-            db.session.commit()
-        except SQLAlchemyError as e:
-            abort(400, message=str(e))
-
-        return project

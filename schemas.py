@@ -13,6 +13,7 @@ class PlainProjectSchema(Schema):
     description = fields.Str(required=False)
     budget = fields.Int(required=False)
     is_active = fields.Boolean(required=False, default=True)
+    project_type_id = fields.Int(required=False)
 
 
 class PlainUserSchema(Schema):
@@ -62,3 +63,4 @@ class ProjectUpdateSchema(Schema):
     description = fields.Str(required=False)
     budget = fields.Int(required=False)
     is_active = fields.Boolean(required=False)
+    project_type_id = fields.Int(required=False)
