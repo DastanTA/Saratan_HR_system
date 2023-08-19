@@ -108,3 +108,23 @@ class GetUpdateDeleteRecoverSingleProject(MethodView):
             abort(400, message=str(e))
 
         return project
+
+
+@blp.route("/project/hard_delete/<int:project_id>")
+class HardDeleteProject(MethodView):
+    @blp.response(
+        202,
+        description="Проект будет удален безвозвратно, если будет найден и нет активных связей.",
+        example={"message":"Проект был удален безвозвратно."}
+    )
+    def delete(self, project_id):
+        project = ProjectModel.query.get_or_404(project_id)
+        name = project.name
+
+        try:
+            db.session.delete(project)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return {"message": f'Проект "{name}" удален безвозвратно.'}
