@@ -1,41 +1,25 @@
-import os
-from datetime import timedelta
-
 from flask import Flask
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
-from dotenv import load_dotenv
 
-from db import db
+from core.db import db
+from config import Config
 
-from resources.project_type import blp as ProjectTypeBlueprint
-from resources.project import blp as ProjectBlueprint
+from core.resources.project_type import blp as ProjectTypeBlueprint
+from core.resources.project import blp as ProjectBlueprint
 
-from models import UserModel
+from core.models import UserModel
 
 
-def create_app(db_url=None):
+def create_app(config_class=Config):
     app = Flask(__name__)
-    load_dotenv()
+    app.config.from_object(config_class)
 
-    app.config["PROPAGATE_EXCEPTIONS"] = True
-    app.config["API_TITLE"] = "Saratan HRS REST API"
-    app.config["API_VERSION"] = "v1"
-    app.config["OPENAPI_VERSION"] = "3.0.3"
-    app.config["OPENAPI_URL_PREFIX"] = "/"
-    app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger-ui"
-    app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
-    app.config["SQLALCHEMY_DATABASE_URI"] = db_url or (f"postgresql://{os.getenv('DB_USERNAME')}:"
-                                                       f"{os.getenv('DB_PASSWORD')}@localhost/{os.getenv('DB_NAME')}")
-    # app.config["SQLALCHEMY_DATABASE_URI"] = db_url or os.getenv("DATABASE_URL", "postgresql:///hrs_db")
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
     migrate = Migrate(app, db)
     api = Api(app)
 
-    app.config["JWT_SECRET_KEY"] = "Saratan_HRS"
-    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=24)
     jwt = JWTManager(app)
 
     # @jwt.token_in_blocklist_loader

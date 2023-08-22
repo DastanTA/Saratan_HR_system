@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from db import db
+from core.db import db
 
 
 class OccupancyModel(db.Model):

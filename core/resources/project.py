@@ -1,12 +1,10 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from flask_jwt_extended import jwt_required, get_jwt
-from sqlalchemy.exc import SQLAlchemyError, IntegrityError
+from sqlalchemy.exc import SQLAlchemyError
 
-from db import db
-from schemas import PlainProjectSchema, ProjectSchema, ProjectUpdateSchema
-from models import ProjectModel, ProjectTypeModel
-
+from core.db import db
+from core.schemas import PlainProjectSchema, ProjectSchema, ProjectUpdateSchema
+from core.models import ProjectModel
 
 blp = Blueprint("projects", __name__, description="Operations on projects")
 

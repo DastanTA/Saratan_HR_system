@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database Container
+  db:
+    container_name: db
+    image: postgres:14
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5431:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my_network
+
+  # Flask Application Container
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    expose:
+      - 5000
+    depends_on:
+      - db
+    environment:
+      FLASK_DEBUG: 1
+      FLASK_APP: core
+      SQLALCHEMY_DATABASE_URI: postgresql://${DB_USERNAME}:${DB_PASSWORD}@db:5432/${DB_NAME}
+    volumes:
+      - .:/app
+    networks:
+      - my_network
+
+volumes:
+  postgres_data:  # Volume for PostgreSQL data storage
+
+networks:
+  my_network:
