@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "326525de-d323-44a6-bd95-675951805892",
+		"name": "HRS - Saratan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "25649409"
+	},
+	"item": [
+		{
+			"name": "project types",
+			"item": [
+				{
+					"name": "Get all project types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/project_type"
+					},
+					"response": []
+				},
+				{
+					"name": "Get single project type by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/project_type/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Create project type",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\",\n    \"description\": \"test_to_delete\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/project_type"
+					},
+					"response": []
+				},
+				{
+					"name": "Update project type",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"video_recording\",\n    \"description\": \"Recording videos with live actors. DBillions style. Updated\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/project_type/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Soft delete of project_type",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/project_type/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Восстановление мягко удаленного",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{base_url}}/project_type/3"
+					},
+					"response": []
+				},
+				{
+					"name": "HARD delete project_type",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/project_type/hard_delete/4"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "projects",
+			"item": [
+				{
+					"name": "Get all projects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/project"
+					},
+					"response": []
+				},
+				{
+					"name": "Get single project",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/project/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/project"
+					},
+					"response": []
+				},
+				{
+					"name": "Update a project",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Lalafun\",\n    \"description\": \"made in Maya\",\n    \"is_active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/project/5"
+					},
+					"response": []
+				},
+				{
+					"name": "Soft delete a project",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/project/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Recover soft deleted project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{base_url}}/project/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Hard delete a project",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/project/hard_delete/4"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
