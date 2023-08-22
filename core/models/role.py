@@ -1,10 +1,10 @@
 from datetime import datetime
 
-from db import db
+from core.db import db
 
 
-class ProjectTypeModel(db.Model):
-    __tablename__ = "project_types"
+class RoleModel(db.Model):
+    __tablename__ = "roles"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)
@@ -14,11 +14,7 @@ class ProjectTypeModel(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    projects = db.relationship(
-        "ProjectModel",
-        back_populates="project_type",
-        cascade="all, delete-orphan"
-    )
+    users = db.relationship("UserModel", back_populates="role", lazy="dynamic", cascade="all, delete-orphan")
 
     def __repr__(self):
-        return f"<Project_type: {self.name}>"
+        return f"<Role: {self.name}>"
