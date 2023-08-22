@@ -18,6 +18,15 @@ These are needed to be installed on the machine.
     - > *Instead of /c/Documents/yourproject, use the path to your project (but remember to use /c/ instead of C:/)*.
 
 
+## Docker-compose commands:
+  - **docker-compose up -d --build**   *[builds our images then runs containers on background]*
+  - **docker-compose down** *[stops containers without deleting volumes]*
+  - **docker-compose down -v** *[stops containers and deletes volumes]*
+  - **docker-compose exec app bash** *[enter the 'app' container with bash]*
+  - **docker-compose exec db psql -U hrs_db** *[enter 'db' container with psql under user hrs_db (by default to database hrs_db)]*
+
+
+
 ## Data base:
  - usefull link to create user and db in postgres (commands): https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart
  - database name: "hrs_db"
