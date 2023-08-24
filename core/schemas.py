@@ -73,3 +73,13 @@ class ProjectUpdateSchema(Schema):
     budget = fields.Int(required=False)
     is_active = fields.Boolean(required=False)
     project_type_id = fields.Int(required=False)
+
+
+class ChannelUpdateSchema(Schema):
+    is_original = fields.Boolean(required=False)
+    channel_name = fields.Str(required=False)
+    description = fields.Str(required=False)
+    url_address = fields.Str(required=False)
+    is_active = fields.Boolean(required=False, default=True)
+    manager_id = fields.Int(required=False)
+    project_id = fields.Int(required=False)
