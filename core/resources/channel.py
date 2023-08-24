@@ -26,4 +26,16 @@ class GetAllAndCreateProject(MethodView):
 
     @blp.response(200, ChannelSchema(many=True))
     def get(self):
-        return ChannelModel.query.filter(ChannelModel.is_deleted==False).all()
+        return ChannelModel.query.filter(ChannelModel.is_deleted == False).all()
+
+
+@blp.route("/channel/<int:channel_id>")
+class GetUpdateDeleteRecoverChannel(MethodView):
+    @blp.response(200, ChannelSchema)
+    def get(self, channel_id):
+        channel = ChannelModel.query.filter(ChannelModel.id == channel_id).first()
+
+        if channel.is_deleted:
+            abort(400, message="Канал был удален. Обратитесь к админу, если хотите восстановить.")
+
+        return channel
