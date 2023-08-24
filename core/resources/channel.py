@@ -23,3 +23,7 @@ class GetAllAndCreateProject(MethodView):
             abort(400, message=str(e))
 
         return channel
+
+    @blp.response(200, ChannelSchema(many=True))
+    def get(self):
+        return ChannelModel.query.filter(ChannelModel.is_deleted==False).all()
