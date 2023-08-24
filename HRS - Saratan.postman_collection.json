@@ -306,13 +306,30 @@
 			"name": "channels",
 			"item": [
 				{
+					"name": "Get all channels",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/channel",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"channel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create a channel",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"is_original\": true,\r\n    \"channel_name\": \"Lalafun\",\r\n    \"description\": \"Lalafun kids channel\",\r\n    \"url_address\": \"https://www.youtube.com/@LalafunNurseryRhymes/videos\",\r\n    \"is_active\": true\r\n}",
+							"raw": "{\r\n    \"is_original\": true,\r\n    \"channel_name\": \"Detective Void\",\r\n    \"description\": \"Channel related to SCP universe\",\r\n    \"url_address\": \"https://www.youtube.com/@DetectiveVoid/videos\",\r\n    \"is_active\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -326,6 +343,51 @@
 							],
 							"path": [
 								"channel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a channel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/channel/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"channel",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update channel",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"is_original\": true,\r\n    \"channel_name\": \"Detective Void\",\r\n    \"description\": \"Update. SCP related channel for teens\",\r\n    \"url_address\": \"https://www.youtube.com/@DetectiveVoid/videos\",\r\n    \"is_active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/channel/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"channel",
+								"2"
 							]
 						}
 					},
