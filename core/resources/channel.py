@@ -3,7 +3,7 @@ from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError
 
 from core.db import db
-from core.schemas import PlainChannelSchema, ChannelSchema
+from core.schemas import PlainChannelSchema, ChannelSchema, ChannelUpdateSchema
 from core.models import ChannelModel
 
 blp = Blueprint("channels", __name__, description="Operations on channels")
@@ -37,5 +37,32 @@ class GetUpdateDeleteRecoverChannel(MethodView):
 
         if channel.is_deleted:
             abort(400, message="Канал был удален. Обратитесь к админу, если хотите восстановить.")
+
+        return channel
+
+    @blp.arguments(ChannelUpdateSchema)
+    @blp.response(200, ChannelSchema)
+    def put(self, channel_data, channel_id):
+        channel = ChannelModel.query.get_or_404(channel_id)
+
+        if channel.is_deleted:
+            abort(404, message="Данный канал был удален. Обратитесь к администратору.")
+
+        if channel:
+            channel.is_original = channel_data.get("is_original")
+            channel.channel_name = channel_data.get("channel_name")
+            channel.description = channel_data.get("description")
+            channel.url_address = channel_data.get("url_address")
+            channel.is_active = channel_data.get("is_active")
+            channel.manager_id = channel_data.get("manager_id")
+            channel.project_id = channel_data.get("project_id")
+        else:
+            channel = ChannelModel(id=channel_id, **channel_data)
+
+        try:
+            db.session.add(channel)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
 
         return channel
