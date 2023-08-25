@@ -66,3 +66,26 @@ class GetUpdateDeleteRecoverChannel(MethodView):
             abort(400, message=str(e))
 
         return channel
+
+    @blp.response(
+        202,
+        description="Канал будет удален в мягкой форме, если будет найден и если не был уже удален.",
+        example={"message": "проект удален(мягко)"}
+    )
+    @blp.alt_response(404, description="Канал не найден")
+    def delete(self, channel_id):
+        channel = ChannelModel.query.get_or_404(channel_id)
+        name = channel.channel_name
+
+        if channel.is_deleted:
+            abort(400,
+                  message="Канал уже был удален. Обратитесь к администратору, если хоитете восстановить.")
+
+        channel.is_deleted = True
+        try:
+            db.session.add(channel)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return {"message": f"Канал '{name}' удален(мягко)."}
