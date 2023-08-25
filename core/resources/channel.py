@@ -105,3 +105,23 @@ class GetUpdateDeleteRecoverChannel(MethodView):
             abort(400, message=str(e))
 
         return channel
+
+
+@blp.route("/channel/hard_delete/<int:channel_id>")
+class HardDeleteChannel(MethodView):
+    @blp.response(
+        202,
+        description="Канал будет удален безвозвратно, если будет найден.",
+        example={"message":"Канал был удален безвозвратно."}
+    )
+    def delete(self, channel_id):
+        channel = ChannelModel.query.get_or_404(channel_id)
+        name = channel.channel_name
+
+        try:
+            db.session.delete(channel)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return {"message": f'Канал "{name}" удален безвозвратно.'}
