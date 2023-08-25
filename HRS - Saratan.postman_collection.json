@@ -392,6 +392,61 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Soft delete a channel",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/channel/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"channel",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recover a deleted channel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/channel/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"channel",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hard delete a channel",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/channel/hard_delete/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"channel",
+								"hard_delete",
+								"3"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
