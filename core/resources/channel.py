@@ -89,3 +89,19 @@ class GetUpdateDeleteRecoverChannel(MethodView):
             abort(400, message=str(e))
 
         return {"message": f"Канал '{name}' удален(мягко)."}
+
+    @blp.response(200, ChannelSchema)
+    def post(self, channel_id):
+        channel = ChannelModel.query.get_or_404(channel_id)
+
+        if not channel.is_deleted:
+            abort(400, message="Проект и так не был удален.")
+
+        channel.is_deleted = False
+        try:
+            db.session.add(channel)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return channel
