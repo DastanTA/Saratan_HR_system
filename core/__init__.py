@@ -9,6 +9,7 @@ from config import Config
 from core.resources.project_type import blp as ProjectTypeBlueprint
 from core.resources.project import blp as ProjectBlueprint
 from core.resources.channel import blp as ChannelBlueprint
+from core.resources.position import blp as PositionBlueprint
 
 from core.models import UserModel
 
@@ -75,5 +76,6 @@ def create_app(config_class=Config):
     api.register_blueprint(ProjectTypeBlueprint)
     api.register_blueprint(ProjectBlueprint)
     api.register_blueprint(ChannelBlueprint)
+    api.register_blueprint(PositionBlueprint)
 
     return app
