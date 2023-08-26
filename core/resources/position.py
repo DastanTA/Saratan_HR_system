@@ -23,3 +23,7 @@ class GetAllAndCreatePosition(MethodView):
             abort(400, message=str(e))
 
         return position
+
+    @blp.response(200, PositionSchema(many=True))
+    def get(self):
+        return PositionModel.query.filter(PositionModel.is_deleted == False).all()
