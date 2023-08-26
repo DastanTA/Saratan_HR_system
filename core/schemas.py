@@ -46,6 +46,12 @@ class PlainPositionSchema(Schema):
     description = fields.Str(required=False)
 
 
+class PositionSchema(PlainPositionSchema):
+    created_at = fields.DateTime(dump_only=True)
+    updated_at = fields.DateTime(dump_only=True)
+    users = fields.List(fields.Nested(PlainUserSchema()), dump_only=True)
+
+
 class ProjectTypeSchema(PlainProjectTypeSchema):
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
