@@ -12,6 +12,7 @@ from core.resources.channel import blp as ChannelBlueprint
 from core.resources.position import blp as PositionBlueprint
 from core.resources.role import blp as RoleBlueprint
 from core.resources.occupancy import blp as OccupancyBlueprint
+from core.resources.user import blp as UserBlueprint
 
 from core.models import UserModel
 
@@ -81,5 +82,6 @@ def create_app(config_class=Config):
     api.register_blueprint(PositionBlueprint)
     api.register_blueprint(RoleBlueprint)
     api.register_blueprint(OccupancyBlueprint)
+    api.register_blueprint(UserBlueprint)
 
     return app
