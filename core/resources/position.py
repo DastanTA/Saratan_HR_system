@@ -36,6 +36,28 @@ class GetUpdateDeleteRecoverSinglePosition(MethodView):
         position = PositionModel.query.get_or_404(position_id)
 
         if position.is_deleted:
-            abort(404, message="Данный проект был удален. Обратитесь к администратору.")
+            abort(404, message="Данная позиция была удалена. Обратитесь к администратору.")
+
+        return position
+
+    @blp.arguments(PositionUpdateSchema)
+    @blp.response(200, PositionSchema)
+    def put(self, position_data, position_id):
+        position = PositionModel.query.get_or_404(position_id)
+
+        if position.is_deleted:
+            abort(404, message="Данная позиция была удалена. Обратитесь к администратору.")
+
+        if position:
+            position.name = position_data.get("name")
+            position.description = position_data.get("description")
+        else:
+            position = PositionModel(id=position_id, **position_data)
+
+        try:
+            db.session.add(position)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
 
         return position
