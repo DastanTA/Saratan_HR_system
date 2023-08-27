@@ -23,3 +23,7 @@ class GetAllAndCreateUser(MethodView):
             abort(400, message=str(e))
 
         return user
+
+    @blp.response(200, UserSchema(many=True))
+    def get(self):
+        return UserModel.query.filter(UserModel.is_deleted == False).all()
