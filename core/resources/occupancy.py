@@ -24,11 +24,11 @@ class GetAllAndCreateOccupancy(MethodView):
 
         return occupancy
 
-#     @blp.response(200, RoleSchema(many=True))
-#     def get(self):
-#         return RoleModel.query.filter(RoleModel.is_deleted == False).all()
-#
-#
+    @blp.response(200, OccupancySchema(many=True))
+    def get(self):
+        return OccupancyModel.query.filter(OccupancyModel.is_deleted == False).all()
+
+
 # @blp.route("/role/<int:role_id>")
 # class GetUpdateDeleteRecoverSingleRole(MethodView):
 #     @blp.response(200, RoleSchema)
