@@ -46,6 +46,18 @@ class PlainPositionSchema(Schema):
     description = fields.Str(required=False)
 
 
+class PlainRoleSchema(Schema):
+    id = fields.Int(dump_only=True)
+    name = fields.Str(required=True)
+    description = fields.Str(required=False)
+
+
+class RoleSchema(PlainRoleSchema):
+    created_at = fields.DateTime(dump_only=True)
+    updated_at = fields.DateTime(dump_only=True)
+    users = fields.List(fields.Nested(PlainUserSchema()), dump_only=True)
+
+
 class PositionSchema(PlainPositionSchema):
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
@@ -98,5 +110,10 @@ class ChannelUpdateSchema(Schema):
 
 
 class PositionUpdateSchema(Schema):
+    name = fields.Str(required=False)
+    description = fields.Str(required=False)
+
+
+class RoleUpdateSchema(Schema):
     name = fields.Str(required=False)
     description = fields.Str(required=False)
