@@ -84,3 +84,19 @@ class GetUpdateDeleteRecoverSinglePosition(MethodView):
             abort(400, message=str(e))
 
         return {"message": f"Позиция '{name}' удалена(мягко)."}
+
+    @blp.response(200, PositionSchema)
+    def post(self, position_id):
+        position = PositionModel.query.get_or_404(position_id)
+
+        if not position.is_deleted:
+            abort(400, message="Позиция и так не был удален.")
+
+        position.is_deleted = False
+        try:
+            db.session.add(position)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return position

@@ -95,7 +95,7 @@ class GetUpdateDeleteRecoverChannel(MethodView):
         channel = ChannelModel.query.get_or_404(channel_id)
 
         if not channel.is_deleted:
-            abort(400, message="Проект и так не был удален.")
+            abort(400, message="Канал и так не был удален.")
 
         channel.is_deleted = False
         try:
