@@ -27,3 +27,15 @@ class GetAllAndCreateUser(MethodView):
     @blp.response(200, UserSchema(many=True))
     def get(self):
         return UserModel.query.filter(UserModel.is_deleted == False).all()
+
+
+@blp.route("/user/<int:user_id>")
+class GetUpdateSoftAndHardDeleteRecoverUser(MethodView):
+    @blp.response(200, UserSchema)
+    def get(self, user_id):
+        user = UserModel.query.get_or_404(user_id)
+
+        if user.is_deleted:
+            abort(400, message="Пользватель удален. Обратитесь к админу.")
+
+        return user
