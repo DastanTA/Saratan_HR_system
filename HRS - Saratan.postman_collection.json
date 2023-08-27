@@ -1,0 +1,454 @@
+{
+	"info": {
+		"_postman_id": "2a3270ed-cbfd-4199-9c4a-8234dd85f03b",
+		"name": "HRS - Saratan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28797434"
+	},
+	"item": [
+		{
+			"name": "project types",
+			"item": [
+				{
+					"name": "Get all project types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/project_type",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"project_type"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single project type by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/project_type/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"project_type",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create project type",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\",\n    \"description\": \"test_to_delete\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/project_type",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"project_type"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update project type",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"video_recording\",\n    \"description\": \"Recording videos with live actors. DBillions style. Updated\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/project_type/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"project_type",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Soft delete of project_type",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/project_type/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"project_type",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Восстановление мягко удаленного",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/project_type/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"project_type",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HARD delete project_type",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/project_type/hard_delete/4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"project_type",
+								"hard_delete",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "projects",
+			"item": [
+				{
+					"name": "Get all projects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/project",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single project",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/project/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"project",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/project",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a project",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Lalafun\",\n    \"description\": \"made in Maya\",\n    \"is_active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/project/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"project",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Soft delete a project",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/project/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"project",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recover soft deleted project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/project/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"project",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hard delete a project",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/project/hard_delete/4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"project",
+								"hard_delete",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "channels",
+			"item": [
+				{
+					"name": "Get all channels",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/channel",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"channel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a channel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"is_original\": true,\r\n    \"channel_name\": \"Detective Void\",\r\n    \"description\": \"Channel related to SCP universe\",\r\n    \"url_address\": \"https://www.youtube.com/@DetectiveVoid/videos\",\r\n    \"is_active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/channel",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"channel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a channel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/channel/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"channel",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update channel",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"is_original\": true,\r\n    \"channel_name\": \"Detective Void\",\r\n    \"description\": \"Update. SCP related channel for teens\",\r\n    \"url_address\": \"https://www.youtube.com/@DetectiveVoid/videos\",\r\n    \"is_active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/channel/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"channel",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Soft delete a channel",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/channel/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"channel",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recover a deleted channel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/channel/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"channel",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hard delete a channel",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/channel/hard_delete/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"channel",
+								"hard_delete",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

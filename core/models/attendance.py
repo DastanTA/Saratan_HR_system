@@ -1,4 +1,4 @@
-from db import db
+from core.db import db
 
 
 class AttendanceModel(db.Model):

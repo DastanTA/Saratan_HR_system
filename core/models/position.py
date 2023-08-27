@@ -1,25 +1,21 @@
 from datetime import datetime
 
-from db import db
+from core.db import db
 
 
-class ProjectTypeModel(db.Model):
-    __tablename__ = "project_types"
+class PositionModel(db.Model):
+    __tablename__ = "positions"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, unique=True)
+    name = db.Column(db.String, unique=True, nullable=False)
     description = db.Column(db.String(2000), nullable=True)
     is_deleted = db.Column(db.Boolean, default=False)
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    projects = db.relationship(
-        "ProjectModel",
-        back_populates="project_type",
-        lazy="dynamic",
-        cascade="all, delete-orphan"
-    )
+    users = db.relationship("UserModel", back_populates="positions", secondary="projects_positions_users",
+                            overlaps="users")
 
     def __repr__(self):
-        return f"<Project_type: {self.name}>"
+        return f"<Position: {self.name}>"
