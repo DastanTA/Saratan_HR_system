@@ -99,38 +99,38 @@ class ChannelSchema(PlainChannelSchema):
 
 
 class ProjectTypeUpdateSchema(Schema):
-    name = fields.Str(required=False)
+    name = fields.Str(required=True)
     description = fields.Str(required=False)
 
 
 class ProjectUpdateSchema(Schema):
-    name = fields.Str(required=False)
+    name = fields.Str(required=True)
     description = fields.Str(required=False)
     budget = fields.Int(required=False)
-    is_active = fields.Boolean(required=False)
+    is_active = fields.Boolean(required=True)
     project_type_id = fields.Int(required=False)
 
 
 class ChannelUpdateSchema(Schema):
-    is_original = fields.Boolean(required=False)
-    channel_name = fields.Str(required=False)
+    is_original = fields.Boolean(required=True)
+    channel_name = fields.Str(required=True)
     description = fields.Str(required=False)
-    url_address = fields.Str(required=False)
-    is_active = fields.Boolean(required=False, default=True)
+    url_address = fields.Str(required=True)
+    is_active = fields.Boolean(required=True, default=True)
     manager_id = fields.Int(required=False)
     project_id = fields.Int(required=False)
 
 
 class PositionUpdateSchema(Schema):
-    name = fields.Str(required=False)
+    name = fields.Str(required=True)
     description = fields.Str(required=False)
 
 
 class RoleUpdateSchema(Schema):
-    name = fields.Str(required=False)
+    name = fields.Str(required=True)
     description = fields.Str(required=False)
 
 
 class OccupancyUpdateSchema(Schema):
-    name = fields.Str(required=False)
+    name = fields.Str(required=True)
     description = fields.Str(required=False)

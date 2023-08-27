@@ -29,39 +29,39 @@ class GetAllAndCreateOccupancy(MethodView):
         return OccupancyModel.query.filter(OccupancyModel.is_deleted == False).all()
 
 
-# @blp.route("/role/<int:role_id>")
-# class GetUpdateDeleteRecoverSingleRole(MethodView):
-#     @blp.response(200, RoleSchema)
-#     def get(self, role_id):
-#         role = RoleModel.query.get_or_404(role_id)
-#
-#         if role.is_deleted:
-#             abort(404, message="Данная роль была удалена. Обратитесь к администратору.")
-#
-#         return role
-#
-#     @blp.arguments(RoleUpdateSchema)
-#     @blp.response(200, RoleSchema)
-#     def put(self, role_data, role_id):
-#         role = RoleModel.query.get_or_404(role_id)
-#
-#         if role.is_deleted:
-#             abort(404, message="Данная роль была удалена. Обратитесь к администратору.")
-#
-#         if role:
-#             role.name = role_data.get("name")
-#             role.description = role_data.get("description")
-#         else:
-#             role = RoleModel(id=role_id, **role_data)
-#
-#         try:
-#             db.session.add(role)
-#             db.session.commit()
-#         except SQLAlchemyError as e:
-#             abort(400, message=str(e))
-#
-#         return role
-#
+@blp.route("/occupancy/<int:occupancy_id>")
+class GetUpdateDeleteRecoverSingleOccupancy(MethodView):
+    @blp.response(200, OccupancySchema)
+    def get(self, occupancy_id):
+        occupancy = OccupancyModel.query.get_or_404(occupancy_id)
+
+        if occupancy.is_deleted:
+            abort(404, message="Данный вид размещения был удален. Обратитесь к администратору.")
+
+        return occupancy
+
+    @blp.arguments(OccupancyUpdateSchema)
+    @blp.response(200, OccupancySchema)
+    def put(self, occupancy_data, occupancy_id):
+        occupancy = OccupancyModel.query.get_or_404(occupancy_id)
+
+        if occupancy.is_deleted:
+            abort(404, message="Данный вид размещения был удален. Обратитесь к администратору.")
+
+        if occupancy:
+            occupancy.name = occupancy_data.get("name")
+            occupancy.description = occupancy_data.get("description")
+        else:
+            occupancy = OccupancyModel(id=occupancy_id, **occupancy_data)
+
+        try:
+            db.session.add(occupancy)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return occupancy
+
 #     @blp.response(
 #         202,
 #         description="Роль будет удалена в мягкой форме, если будет найдена и если не была уже удалена.",
