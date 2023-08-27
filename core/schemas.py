@@ -161,3 +161,8 @@ class UserUpdateSchema(Schema):
     basic_profession = fields.Str(required=True)
     notes = fields.Str(required=False)
     is_active = fields.Boolean(required=True)
+
+
+class UserLoginSchema(Schema):
+    username = fields.Str(required=True)
+    password = fields.Str(required=True)
