@@ -99,6 +99,7 @@ class ChannelSchema(PlainChannelSchema):
 
 
 class UserSchema(PlainUserSchema):
+    password = fields.Str(dump_only=True, exclude=True)
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
     is_active = fields.Boolean(dump_only=True)
@@ -109,6 +110,7 @@ class UserSchema(PlainUserSchema):
     positions = fields.List(fields.Nested(PlainPositionSchema()), dump_only=True)
     projects = fields.List(fields.Nested(PlainProjectSchema()), dump_only=True)
     channels = fields.List(fields.Nested(PlainChannelSchema()), dump_only=True)
+
 
 
 class ProjectTypeUpdateSchema(Schema):
@@ -152,7 +154,6 @@ class OccupancyUpdateSchema(Schema):
 class UserUpdateSchema(Schema):
     username = fields.Str(required=True)
     email = fields.Str(required=True)
-    password = fields.Str(required=True)
     phone = fields.Str(required=False)
     first_name = fields.Str(required=True)
     middle_name = fields.Str(required=False)
