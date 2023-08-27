@@ -180,13 +180,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/project/1",
+							"raw": "{{base_url}}/project/2",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"project",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -773,7 +773,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"office-fulltime\"\r\n}",
+							"raw": "{\r\n    \"name\": \"test\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -889,6 +889,162 @@
 								"3"
 							]
 						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "/user : Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/user : Create a user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"dastan_t\",\r\n    \"email\": \"das.turatbek@gmail.com\",\r\n    \"password\": \"dastan_t\",\r\n    \"phone\": \"+996555787689\",\r\n    \"first_name\": \"Дастан\",\r\n    \"middle_name\": \"Аманович\",\r\n    \"last_name\": \"Туратбеков\",\r\n    \"basic_profession\": \"manager\",\r\n    \"notes\": \"В Саратане с 2017-года. Начинал как 2D аниматор -> 3D аниматор. Большую часть карьеры проработал как проектный менеджер. Сейчас на полставки - контент менеджер.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/user/<user_id> : Get the user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/user/<user_id> : Update the user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Abai_J\",\r\n    \"email\": \"abai_Z@gmail.com\",\r\n    \"phone\": \"+996555654321\",\r\n    \"first_name\": \"Абай\",\r\n    \"last_name\": \"Жалилов\",\r\n    \"basic_profession\": \"manager\",\r\n    \"is_active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/user/<user_id> : Soft delete the user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/user/<user_id> : Recover the deleted user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/user/hard_delete/<user_id> : Hard delete the user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/hard_delete/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"hard_delete",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/login : User login",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
