@@ -625,7 +625,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"employee\",\r\n    \"description\": \"Can see information only about himself and some details of projects and channels related to him.\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Test\",\r\n    \"description\": \"To test delete and recover functions\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -737,6 +737,154 @@
 							],
 							"path": [
 								"role",
+								"hard_delete",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "occupancies",
+			"item": [
+				{
+					"name": "/occupancy : Get all occupancies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/occupancy",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"occupancy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/occupancy : Create an occupancy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"office-fulltime\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/occupancy",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"occupancy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/occupancy/<occupancy_id> : Get an occupancy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/occupancy/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"occupancy",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/occupancy/<occupancy_id> : Update an occupancy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"office-parttime\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/occupancy/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"occupancy",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/occupancy/<occupancy_id> : Soft delete an occupancy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/occupancy/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"occupancy",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/occupancy/<occupancy_id> : Recover a deleted occupancy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/occupancy/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"occupancy",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/occupancy/hard_delete/<occupancy_id> : Hard delete an occupancy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/occupancy/hard_delete/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"occupancy",
 								"hard_delete",
 								"3"
 							]
