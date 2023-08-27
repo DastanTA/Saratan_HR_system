@@ -100,3 +100,23 @@ class GetUpdateDeleteRecoverSinglePosition(MethodView):
             abort(400, message=str(e))
 
         return position
+
+
+@blp.route("/position/hard_delete/<int:position_id>")
+class HardDeletePosition(MethodView):
+    @blp.response(
+        202,
+        description="Позиция будет удалена безвозвратно, если будет найдена.",
+        example={"message": "Позиция была удалена безвозвратно."}
+    )
+    def delete(self, position_id):
+        position = PositionModel.query.get_or_404(position_id)
+        name = position.name
+
+        try:
+            db.session.delete(position)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return {"message": f'Позиция "{name}" удалена безвозвратно.'}
