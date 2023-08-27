@@ -117,3 +117,22 @@ class GetUpdateSoftAndHardDeleteRecoverUser(MethodView):
             abort(400, message=str(e))
 
         return user
+
+
+@blp.route("/user/hard_delete/<int:user_id>")
+class HardDeleteUser(MethodView):
+    @blp.response(
+        202,
+        description="Пользователь будет удален безвозвратно, если будет найден.",
+        example={"message": "Пользователь был удален безвозвратно."}
+    )
+    def delete(self, user_id):
+        user = UserModel.query.get_or_404(user_id)
+
+        try:
+            db.session.delete(user)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return {"message": f'Пользователь "{user.username}" удален безвозвратно.'}
