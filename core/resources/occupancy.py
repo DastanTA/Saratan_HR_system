@@ -62,28 +62,28 @@ class GetUpdateDeleteRecoverSingleOccupancy(MethodView):
 
         return occupancy
 
-#     @blp.response(
-#         202,
-#         description="Роль будет удалена в мягкой форме, если будет найдена и если не была уже удалена.",
-#         example={"message": "Роль удалена(мягко)"}
-#     )
-#     @blp.alt_response(404, description="Роль не найдена")
-#     def delete(self, role_id):
-#         role = RoleModel.query.get_or_404(role_id)
-#         name = role.name
-#
-#         if role.is_deleted:
-#             abort(400,
-#                   message="Данная Роль была уже удалена. Обратитесь к администратору, если хоитете восстановить.")
-#
-#         role.is_deleted = True
-#         try:
-#             db.session.add(role)
-#             db.session.commit()
-#         except SQLAlchemyError as e:
-#             abort(400, message=str(e))
-#
-#         return {"message": f"Роль '{name}' удалена(мягко)."}
+    @blp.response(
+        202,
+        description="Вид размещения будет удален в мягкой форме, если будет найден и если не был уже удален.",
+        example={"message": "Вид размещения удален(мягко)"}
+    )
+    @blp.alt_response(404, description="Вид размещения не найден.")
+    def delete(self, occupancy_id):
+        occupancy = OccupancyModel.query.get_or_404(occupancy_id)
+        name = occupancy.name
+
+        if occupancy.is_deleted:
+            abort(400,
+                  message="Данный вид размещения был уже удален. Обратитесь к администратору, если хоитете восстановить.")
+
+        occupancy.is_deleted = True
+        try:
+            db.session.add(occupancy)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return {"message": f"Вид размещения '{name}' удален(мягко)."}
 #
 #     @blp.response(200, RoleSchema)
 #     def post(self, role_id):
