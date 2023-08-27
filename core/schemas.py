@@ -98,6 +98,19 @@ class ChannelSchema(PlainChannelSchema):
     project = fields.Nested(PlainProjectSchema(), dump_only=True)
 
 
+class UserSchema(PlainUserSchema):
+    created_at = fields.DateTime(dump_only=True)
+    updated_at = fields.DateTime(dump_only=True)
+    is_active = fields.Boolean(dump_only=True)
+    role_id = fields.Int(load_only=True)
+    role = fields.Nested(PlainRoleSchema(), dump_only=True)
+    occupancy_id = fields.Int(load_only=True)
+    occupancy = fields.Nested(PlainOccupancySchema(), dump_only=True)
+    positions = fields.List(fields.Nested(PlainPositionSchema()), dump_only=True)
+    projects = fields.List(fields.Nested(PlainProjectSchema()), dump_only=True)
+    channels = fields.List(fields.Nested(PlainChannelSchema()), dump_only=True)
+
+
 class ProjectTypeUpdateSchema(Schema):
     name = fields.Str(required=True)
     description = fields.Str(required=False)
@@ -134,3 +147,16 @@ class RoleUpdateSchema(Schema):
 class OccupancyUpdateSchema(Schema):
     name = fields.Str(required=True)
     description = fields.Str(required=False)
+
+
+class UserUpdateSchema(Schema):
+    username = fields.Str(required=True)
+    email = fields.Str(required=True)
+    password = fields.Str(required=True)
+    phone = fields.Str(required=False)
+    first_name = fields.Str(required=True)
+    middle_name = fields.Str(required=False)
+    last_name = fields.Str(required=True)
+    basic_profession = fields.Str(required=True)
+    notes = fields.Str(required=False)
+    is_active = fields.Boolean(required=True)
