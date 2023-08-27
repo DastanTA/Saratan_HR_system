@@ -10,7 +10,7 @@ class UserModel(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=True)
     email = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(300))
-    phone = db.Column(db.Integer, unique=True, nullable=True)
+    phone = db.Column(db.String, unique=True, nullable=True)
     first_name = db.Column(db.String(30))
     middle_name = db.Column(db.String(30), nullable=True)
     last_name = db.Column(db.String(50))
