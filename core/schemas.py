@@ -99,7 +99,7 @@ class ChannelSchema(PlainChannelSchema):
 
 
 class UserSchema(PlainUserSchema):
-    password = fields.Str(dump_only=True, exclude=True)
+    password = fields.Str(dump_only=True, load_only=True)
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
     is_active = fields.Boolean(dump_only=True)
