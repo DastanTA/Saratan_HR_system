@@ -79,3 +79,25 @@ class GetUpdateSoftAndHardDeleteRecoverUser(MethodView):
             abort(400, message=str(e))
 
         return user
+
+    @blp.response(
+        202,
+        description="Пользователь будет удален в мягкой форме, если будет найден и если не была уже удален.",
+        example={"message": "Пользователь удален(мягко)"}
+    )
+    @blp.alt_response(404, description="Пользователь не найден")
+    def delete(self, user_id):
+        user = UserModel.query.get_or_404(user_id)
+
+        if user.is_deleted:
+            abort(400,
+                  message="Данный пользователь был уже удален. Обратитесь к администратору, если хоитете восстановить.")
+
+        user.is_deleted = True
+        try:
+            db.session.add(user)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return {"message": f"Пользователь '{user.username}' удален(мягко)."}
