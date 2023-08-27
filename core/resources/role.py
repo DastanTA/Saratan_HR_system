@@ -40,28 +40,28 @@ class GetUpdateDeleteRecoverSingleRole(MethodView):
 
         return role
 
-#     @blp.arguments(PositionUpdateSchema)
-#     @blp.response(200, PositionSchema)
-#     def put(self, position_data, position_id):
-#         position = PositionModel.query.get_or_404(position_id)
-#
-#         if position.is_deleted:
-#             abort(404, message="Данная позиция была удалена. Обратитесь к администратору.")
-#
-#         if position:
-#             position.name = position_data.get("name")
-#             position.description = position_data.get("description")
-#         else:
-#             position = PositionModel(id=position_id, **position_data)
-#
-#         try:
-#             db.session.add(position)
-#             db.session.commit()
-#         except SQLAlchemyError as e:
-#             abort(400, message=str(e))
-#
-#         return position
-#
+    @blp.arguments(RoleUpdateSchema)
+    @blp.response(200, RoleSchema)
+    def put(self, role_data, role_id):
+        role = RoleModel.query.get_or_404(role_id)
+
+        if role.is_deleted:
+            abort(404, message="Данная роль была удалена. Обратитесь к администратору.")
+
+        if role:
+            role.name = role_data.get("name")
+            role.description = role_data.get("description")
+        else:
+            role = RoleModel(id=role_id, **role_data)
+
+        try:
+            db.session.add(role)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return role
+
 #     @blp.response(
 #         202,
 #         description="Позиция будет удалена в мягкой форме, если будет найдена и если не была уже удалена.",
