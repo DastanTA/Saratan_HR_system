@@ -102,21 +102,21 @@ class GetUpdateDeleteRecoverSingleRole(MethodView):
         return role
 
 
-# @blp.route("/position/hard_delete/<int:position_id>")
-# class HardDeletePosition(MethodView):
-#     @blp.response(
-#         202,
-#         description="Позиция будет удалена безвозвратно, если будет найдена.",
-#         example={"message": "Позиция была удалена безвозвратно."}
-#     )
-#     def delete(self, position_id):
-#         position = PositionModel.query.get_or_404(position_id)
-#         name = position.name
-#
-#         try:
-#             db.session.delete(position)
-#             db.session.commit()
-#         except SQLAlchemyError as e:
-#             abort(400, message=str(e))
-#
-#         return {"message": f'Позиция "{name}" удалена безвозвратно.'}
+@blp.route("/role/hard_delete/<int:role_id>")
+class HardDeleteRole(MethodView):
+    @blp.response(
+        202,
+        description="Роль будет удалена безвозвратно, если будет найдена.",
+        example={"message": "Роль была удалена безвозвратно."}
+    )
+    def delete(self, role_id):
+        role = RoleModel.query.get_or_404(role_id)
+        name = role.name
+
+        try:
+            db.session.delete(role)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return {"message": f'Роль "{name}" удалена безвозвратно.'}
