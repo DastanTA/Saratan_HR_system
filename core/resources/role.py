@@ -85,23 +85,23 @@ class GetUpdateDeleteRecoverSingleRole(MethodView):
 
         return {"message": f"Роль '{name}' удалена(мягко)."}
 
-#     @blp.response(200, PositionSchema)
-#     def post(self, position_id):
-#         position = PositionModel.query.get_or_404(position_id)
-#
-#         if not position.is_deleted:
-#             abort(400, message="Позиция и так не был удален.")
-#
-#         position.is_deleted = False
-#         try:
-#             db.session.add(position)
-#             db.session.commit()
-#         except SQLAlchemyError as e:
-#             abort(400, message=str(e))
-#
-#         return position
-#
-#
+    @blp.response(200, RoleSchema)
+    def post(self, role_id):
+        role = RoleModel.query.get_or_404(role_id)
+
+        if not role.is_deleted:
+            abort(400, message="Роль и так не былa удаленa.")
+
+        role.is_deleted = False
+        try:
+            db.session.add(role)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return role
+
+
 # @blp.route("/position/hard_delete/<int:position_id>")
 # class HardDeletePosition(MethodView):
 #     @blp.response(
