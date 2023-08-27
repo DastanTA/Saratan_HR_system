@@ -102,21 +102,21 @@ class GetUpdateDeleteRecoverSingleOccupancy(MethodView):
         return occupancy
 
 
-# @blp.route("/role/hard_delete/<int:role_id>")
-# class HardDeleteRole(MethodView):
-#     @blp.response(
-#         202,
-#         description="Роль будет удалена безвозвратно, если будет найдена.",
-#         example={"message": "Роль была удалена безвозвратно."}
-#     )
-#     def delete(self, role_id):
-#         role = RoleModel.query.get_or_404(role_id)
-#         name = role.name
-#
-#         try:
-#             db.session.delete(role)
-#             db.session.commit()
-#         except SQLAlchemyError as e:
-#             abort(400, message=str(e))
-#
-#         return {"message": f'Роль "{name}" удалена безвозвратно.'}
+@blp.route("/occupancy/hard_delete/<int:occupancy_id>")
+class HardDeleteOccupancy(MethodView):
+    @blp.response(
+        202,
+        description="Вид размещения будет удален безвозвратно, если будет найдена.",
+        example={"message": "Вид размещения был удален безвозвратно."}
+    )
+    def delete(self, occupancy_id):
+        occupancy = OccupancyModel.query.get_or_404(occupancy_id)
+        name = occupancy.name
+
+        try:
+            db.session.delete(occupancy)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return {"message": f'Вид размещения "{name}" удален безвозвратно.'}
