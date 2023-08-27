@@ -24,22 +24,22 @@ class GetAllAndCreateRole(MethodView):
 
         return role
 
-#     @blp.response(200, PositionSchema(many=True))
-#     def get(self):
-#         return PositionModel.query.filter(PositionModel.is_deleted == False).all()
-#
-#
-# @blp.route("/position/<int:position_id>")
-# class GetUpdateDeleteRecoverSinglePosition(MethodView):
-#     @blp.response(200, PositionSchema)
-#     def get(self, position_id):
-#         position = PositionModel.query.get_or_404(position_id)
-#
-#         if position.is_deleted:
-#             abort(404, message="Данная позиция была удалена. Обратитесь к администратору.")
-#
-#         return position
-#
+    @blp.response(200, RoleSchema(many=True))
+    def get(self):
+        return RoleModel.query.filter(RoleModel.is_deleted == False).all()
+
+
+@blp.route("/role/<int:role_id>")
+class GetUpdateDeleteRecoverSingleRole(MethodView):
+    @blp.response(200, RoleSchema)
+    def get(self, role_id):
+        role = RoleModel.query.get_or_404(role_id)
+
+        if role.is_deleted:
+            abort(404, message="Данная роль была удалена. Обратитесь к администратору.")
+
+        return role
+
 #     @blp.arguments(PositionUpdateSchema)
 #     @blp.response(200, PositionSchema)
 #     def put(self, position_data, position_id):
