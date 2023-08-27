@@ -52,6 +52,18 @@ class PlainRoleSchema(Schema):
     description = fields.Str(required=False)
 
 
+class PlainOccupancySchema(Schema):
+    id = fields.Int(dump_only=True)
+    name = fields.Str(required=True)
+    description = fields.Str(required=False)
+
+
+class OccupancySchema(PlainOccupancySchema):
+    created_at = fields.DateTime(dump_only=True)
+    updated_at = fields.DateTime(dump_only=True)
+    users = fields.List(fields.Nested(PlainUserSchema()), dump_only=True)
+
+
 class RoleSchema(PlainRoleSchema):
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
@@ -115,5 +127,10 @@ class PositionUpdateSchema(Schema):
 
 
 class RoleUpdateSchema(Schema):
+    name = fields.Str(required=False)
+    description = fields.Str(required=False)
+
+
+class OccupancyUpdateSchema(Schema):
     name = fields.Str(required=False)
     description = fields.Str(required=False)
