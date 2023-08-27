@@ -27,3 +27,15 @@ class GetAllAndCreatePosition(MethodView):
     @blp.response(200, PositionSchema(many=True))
     def get(self):
         return PositionModel.query.filter(PositionModel.is_deleted == False).all()
+
+
+@blp.route("/position/<int:position_id>")
+class GetUpdateDeleteRecoverSinglePosition(MethodView):
+    @blp.response(200, PositionSchema)
+    def get(self, position_id):
+        position = PositionModel.query.get_or_404(position_id)
+
+        if position.is_deleted:
+            abort(404, message="Данный проект был удален. Обратитесь к администратору.")
+
+        return position
