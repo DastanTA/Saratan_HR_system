@@ -36,6 +36,87 @@ class GetUpdateDeleteRecoverSinglePosition(MethodView):
         position = PositionModel.query.get_or_404(position_id)
 
         if position.is_deleted:
-            abort(404, message="Данный проект был удален. Обратитесь к администратору.")
+            abort(404, message="Данная позиция была удалена. Обратитесь к администратору.")
 
         return position
+
+    @blp.arguments(PositionUpdateSchema)
+    @blp.response(200, PositionSchema)
+    def put(self, position_data, position_id):
+        position = PositionModel.query.get_or_404(position_id)
+
+        if position.is_deleted:
+            abort(404, message="Данная позиция была удалена. Обратитесь к администратору.")
+
+        if position:
+            position.name = position_data.get("name")
+            position.description = position_data.get("description")
+        else:
+            position = PositionModel(id=position_id, **position_data)
+
+        try:
+            db.session.add(position)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return position
+
+    @blp.response(
+        202,
+        description="Позиция будет удалена в мягкой форме, если будет найдена и если не была уже удалена.",
+        example={"message": "Позиция удалена(мягко)"}
+    )
+    @blp.alt_response(404, description="Позиция не найдена")
+    def delete(self, position_id):
+        position = PositionModel.query.get_or_404(position_id)
+        name = position.name
+
+        if position.is_deleted:
+            abort(400,
+                  message="Данная позиция была уже удалена. Обратитесь к администратору, если хоитете восстановить.")
+
+        position.is_deleted = True
+        try:
+            db.session.add(position)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return {"message": f"Позиция '{name}' удалена(мягко)."}
+
+    @blp.response(200, PositionSchema)
+    def post(self, position_id):
+        position = PositionModel.query.get_or_404(position_id)
+
+        if not position.is_deleted:
+            abort(400, message="Позиция и так не был удален.")
+
+        position.is_deleted = False
+        try:
+            db.session.add(position)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return position
+
+
+@blp.route("/position/hard_delete/<int:position_id>")
+class HardDeletePosition(MethodView):
+    @blp.response(
+        202,
+        description="Позиция будет удалена безвозвратно, если будет найдена.",
+        example={"message": "Позиция была удалена безвозвратно."}
+    )
+    def delete(self, position_id):
+        position = PositionModel.query.get_or_404(position_id)
+        name = position.name
+
+        try:
+            db.session.delete(position)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(400, message=str(e))
+
+        return {"message": f'Позиция "{name}" удалена безвозвратно.'}

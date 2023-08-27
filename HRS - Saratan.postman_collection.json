@@ -10,7 +10,7 @@
 			"name": "project types",
 			"item": [
 				{
-					"name": "Get all project types",
+					"name": "/project_type : Get all project types",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -27,7 +27,7 @@
 					"response": []
 				},
 				{
-					"name": "Get single project type by ID",
+					"name": "/project_type/<project_type_id> : Get single project type by ID",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -45,7 +45,7 @@
 					"response": []
 				},
 				{
-					"name": "Create project type",
+					"name": "/project_type : Create project type",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -71,7 +71,7 @@
 					"response": []
 				},
 				{
-					"name": "Update project type",
+					"name": "/project_type/<project_type_id> : Update project type",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -98,7 +98,7 @@
 					"response": []
 				},
 				{
-					"name": "Soft delete of project_type",
+					"name": "/project_type/<project_type_id> : Soft delete of project_type",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -116,7 +116,7 @@
 					"response": []
 				},
 				{
-					"name": "Восстановление мягко удаленного",
+					"name": "/project_type/<project_type_id> : Recover a project_type",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -134,7 +134,7 @@
 					"response": []
 				},
 				{
-					"name": "HARD delete project_type",
+					"name": "/project_type/hard_delete/<project_type_id> : HARD delete project_type",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -158,7 +158,7 @@
 			"name": "projects",
 			"item": [
 				{
-					"name": "Get all projects",
+					"name": "/project : Get all projects",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -175,7 +175,7 @@
 					"response": []
 				},
 				{
-					"name": "Get single project",
+					"name": "/project/<project_id> : Get single project",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -193,7 +193,7 @@
 					"response": []
 				},
 				{
-					"name": "Create project",
+					"name": "/project: Create project",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -219,7 +219,7 @@
 					"response": []
 				},
 				{
-					"name": "Update a project",
+					"name": "/project/<project_id> : Update a project",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -246,7 +246,7 @@
 					"response": []
 				},
 				{
-					"name": "Soft delete a project",
+					"name": "/project/<project_id> :  Soft delete a project",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -264,7 +264,7 @@
 					"response": []
 				},
 				{
-					"name": "Recover soft deleted project",
+					"name": "/project/<project_id> : Recover soft deleted project",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -282,7 +282,7 @@
 					"response": []
 				},
 				{
-					"name": "Hard delete a project",
+					"name": "/project/hard_delete/<project_id> : Hard delete a project",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -306,7 +306,7 @@
 			"name": "channels",
 			"item": [
 				{
-					"name": "Get all channels",
+					"name": "/channel : Get all channels",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -323,7 +323,7 @@
 					"response": []
 				},
 				{
-					"name": "Create a channel",
+					"name": "/channel : Create a channel",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -349,7 +349,7 @@
 					"response": []
 				},
 				{
-					"name": "Get a channel",
+					"name": "/channel/<channel_id> : Get a channel",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -367,7 +367,7 @@
 					"response": []
 				},
 				{
-					"name": "Update channel",
+					"name": "/channel/<channel_id> : Update channel",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -394,7 +394,7 @@
 					"response": []
 				},
 				{
-					"name": "Soft delete a channel",
+					"name": "/channel/<channel_id> : Soft delete a channel",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -412,7 +412,7 @@
 					"response": []
 				},
 				{
-					"name": "Recover a deleted channel",
+					"name": "/channel/<channel_id> : Recover a deleted channel",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -430,7 +430,7 @@
 					"response": []
 				},
 				{
-					"name": "Hard delete a channel",
+					"name": "/channel/hard_delete/<channel_id> : Hard delete a channel",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -443,6 +443,154 @@
 								"channel",
 								"hard_delete",
 								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "positions",
+			"item": [
+				{
+					"name": "/position : Get all positions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/position",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"position"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/position : Create a position",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test\",\r\n    \"description\": \"To test delete and recover\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/position",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"position"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/position/<position_id> : Get a position",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/position/4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"position",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/position/<position_id> : Update a position",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"2D animator\",\r\n    \"description\": \"Moho, After Effects, etc.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/position/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"position",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/position/<position_id> : Soft delete a position",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/position/4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"position",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/position/<position_id> : Recover a position",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/position/4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"position",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/position/hard_delete/<position_id> : Hard delete a position",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/position/hard_delete/4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"position",
+								"hard_delete",
+								"4"
 							]
 						}
 					},
