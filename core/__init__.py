@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
@@ -47,34 +47,34 @@ def create_app(config_class=Config):
     #     user = UserModel.query.get_or_404(identity)
     #
     #     return {"role": user.role.name}
-    #
-    # @jwt.expired_token_loader
-    # def expired_token_callback(jwt_header, jwt_payload):
-    #     return (
-    #         jsonify({"message": "The token has expired/Срок жизни токена истек.", "error": "token_expired"}),
-    #         401,
-    #     )
-    #
-    # @jwt.invalid_token_loader
-    # def invalid_token_callback(error):
-    #     return (
-    #         jsonify(
-    #             {"message": "Signature verification failed/Не удалось верифицировать токен.", "error": "invalid_token"}
-    #         ),
-    #         401,
-    #     )
-    #
-    # @jwt.unauthorized_loader
-    # def missing_token_callback(error):
-    #     return (
-    #         jsonify(
-    #             {
-    #                 "description": "Request does not contain an access token/В запросе нет токена.",
-    #                 "error": "authorization_required",
-    #             }
-    #         ),
-    #         401,
-    #     )
+
+    @jwt.expired_token_loader
+    def expired_token_callback(jwt_header, jwt_payload):
+        return (
+            jsonify({"message": "The token has expired/Срок жизни токена истек.", "error": "token_expired"}),
+            401,
+        )
+
+    @jwt.invalid_token_loader
+    def invalid_token_callback(error):
+        return (
+            jsonify(
+                {"message": "Signature verification failed/Не удалось верифицировать токен.", "error": "invalid_token"}
+            ),
+            401,
+        )
+
+    @jwt.unauthorized_loader
+    def missing_token_callback(error):
+        return (
+            jsonify(
+                {
+                    "description": "Request does not contain an access token/В запросе нет токена.",
+                    "error": "authorization_required",
+                }
+            ),
+            401,
+        )
 
     api.register_blueprint(ProjectTypeBlueprint)
     api.register_blueprint(ProjectBlueprint)

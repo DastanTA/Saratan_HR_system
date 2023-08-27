@@ -2,9 +2,10 @@ from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError
 from passlib.hash import pbkdf2_sha256
+from flask_jwt_extended import create_access_token
 
 from core.db import db
-from core.schemas import PlainUserSchema, UserSchema, UserUpdateSchema
+from core.schemas import PlainUserSchema, UserSchema, UserUpdateSchema, UserLoginSchema
 from core.models import UserModel
 
 blp = Blueprint("users", __name__, description="Operations on users")
@@ -136,3 +137,16 @@ class HardDeleteUser(MethodView):
             abort(400, message=str(e))
 
         return {"message": f'Пользователь "{user.username}" удален безвозвратно.'}
+
+
+@blp.route("/login")
+class UserLogin(MethodView):
+    @blp.arguments(UserLoginSchema)
+    def post(self, user_login_data):
+        user = UserModel.query.filter(UserModel.username == user_login_data["username"]).first()
+
+        if user and pbkdf2_sha256.verify(user_login_data["password"], user.password):
+            access_token = create_access_token(identity=user.id)
+            return {"access_token": access_token}, 200
+
+        abort(401, message="Неправильный логин или пароль.")
