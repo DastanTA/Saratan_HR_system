@@ -41,12 +41,12 @@ def create_app(config_class=Config):
     #         ),
     #         401,
     #     )
-    #
-    # @jwt.additional_claims_loader
-    # def add_claims_to_jwt(identity):
-    #     user = UserModel.query.get_or_404(identity)
-    #
-    #     return {"role": user.role.name}
+
+    @jwt.additional_claims_loader
+    def add_claims_to_jwt(identity):
+        user = UserModel.query.get_or_404(identity)
+
+        return {"role": user.role.name}
 
     @jwt.expired_token_loader
     def expired_token_callback(jwt_header, jwt_payload):

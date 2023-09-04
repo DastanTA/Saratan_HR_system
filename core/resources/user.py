@@ -2,7 +2,7 @@ from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError
 from passlib.hash import pbkdf2_sha256
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt
 
 from core.db import db
 from core.schemas import PlainUserSchema, UserSchema, UserUpdateSchema, UserLoginSchema
@@ -13,9 +13,15 @@ blp = Blueprint("users", __name__, description="Operations on users")
 
 @blp.route("/user")
 class GetAllAndCreateUser(MethodView):
+    @jwt_required()
     @blp.arguments(PlainUserSchema)
     @blp.response(201, UserSchema)
     def post(self, user_data):
+        jwt = get_jwt()
+        role = jwt.get("role")
+        if role not in ["HR", "owner", "admin"]:
+            abort(401, message="У вас нет доступа для регистрации нового пользователя.")
+
         user = UserModel(
             username=user_data.get("username"),
             email=user_data.get("email"),
