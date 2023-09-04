@@ -29,6 +29,7 @@ class PlainUserSchema(Schema):
     last_name = fields.Str(required=True)
     basic_profession = fields.Str(required=True)
     notes = fields.Str(required=False)
+    role_id = fields.Int(required=False)
 
 
 class PlainProjectSchema(Schema):
@@ -103,7 +104,6 @@ class UserSchema(PlainUserSchema):
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
     is_active = fields.Boolean(dump_only=True)
-    role_id = fields.Int(load_only=True)
     role = fields.Nested(PlainRoleSchema(), dump_only=True)
     occupancy_id = fields.Int(load_only=True)
     occupancy = fields.Nested(PlainOccupancySchema(), dump_only=True)
@@ -161,6 +161,7 @@ class UserUpdateSchema(Schema):
     basic_profession = fields.Str(required=True)
     notes = fields.Str(required=False)
     is_active = fields.Boolean(required=True)
+    role_id = fields.Int(required=False)
 
 
 class UserLoginSchema(Schema):

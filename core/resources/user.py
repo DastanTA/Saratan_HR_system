@@ -31,7 +31,8 @@ class GetAllAndCreateUser(MethodView):
             middle_name=user_data.get("middle_name"),
             last_name=user_data.get("last_name"),
             basic_profession=user_data.get("basic_profession"),
-            notes=user_data.get("notes")
+            notes=user_data.get("notes"),
+            role_id=user_data.get("role_id")
         )
 
         try:
@@ -76,6 +77,7 @@ class GetUpdateSoftAndHardDeleteRecoverUser(MethodView):
             user.basic_profession = user_data.get("basic_profession"),
             user.notes = user_data.get("notes")
             user.is_active = user_data.get("is_active")
+            user.role_id = user_data.get("role_id")
         else:
             abort(400, message=f"Пользователя с id номером: '{user_id}' не существует в базе.")
 
