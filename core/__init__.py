@@ -14,7 +14,7 @@ from core.resources.role import blp as RoleBlueprint
 from core.resources.occupancy import blp as OccupancyBlueprint
 from core.resources.user import blp as UserBlueprint
 
-from core.models import UserModel
+from core.models import UserModel, BlocklistModel
 
 
 def create_app(config_class=Config):
@@ -27,20 +27,20 @@ def create_app(config_class=Config):
 
     jwt = JWTManager(app)
 
-    # @jwt.token_in_blocklist_loader
-    # def check_if_token_in_blocklist(jwt_header, jwt_payload):
-    #     if BlockListModel.query.filter(BlockListModel.jti == jwt_payload["jti"]).first():
-    #         return True
-    #     return False
-    #
-    # @jwt.revoked_token_loader
-    # def revoked_taken_callback(jwt_header, jwt_payload):
-    #     return (
-    #         jsonify(
-    #             {"description": "The token has been revoked/Токен был отозван.", "error": "token_revoked"}
-    #         ),
-    #         401,
-    #     )
+    @jwt.token_in_blocklist_loader
+    def check_if_token_in_blocklist(jwt_header, jwt_payload):
+        if BlocklistModel.query.filter(BlocklistModel.jti == jwt_payload["jti"]).first():
+            return True
+        return False
+
+    @jwt.revoked_token_loader
+    def revoked_taken_callback(jwt_header, jwt_payload):
+        return (
+            jsonify(
+                {"description": "The token has been revoked/Токен был отозван.", "error": "token_revoked"}
+            ),
+            401,
+        )
 
     @jwt.additional_claims_loader
     def add_claims_to_jwt(identity):

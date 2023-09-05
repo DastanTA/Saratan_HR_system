@@ -7,3 +7,4 @@ from core.models.position import PositionModel
 from core.models.project import ProjectModel
 from core.models.projects_positions_users import ProjectsPositionsUsers
 from core.models.role import RoleModel
+from core.models.blocklist import BlocklistModel
