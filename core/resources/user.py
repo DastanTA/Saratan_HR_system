@@ -6,7 +6,7 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt
 
 from core.db import db
 from core.schemas import PlainUserSchema, UserSchema, UserUpdateSchema, UserLoginSchema
-from core.models import UserModel
+from core.models import UserModel, BlocklistModel
 
 blp = Blueprint("users", __name__, description="Operations on users")
 
@@ -19,8 +19,10 @@ class GetAllAndCreateUser(MethodView):
     def post(self, user_data):
         jwt = get_jwt()
         role = jwt.get("role")
-        if role not in ["HR", "owner", "admin"]:
-            abort(401, message="У вас нет доступа для регистрации нового пользователя.")
+        access_list = ["HR", "owner", "admin"]
+
+        if role not in access_list:
+            abort(403, message="У вас нет доступа для регистрации нового пользователя.")
 
         user = UserModel(
             username=user_data.get("username"),
@@ -43,6 +45,7 @@ class GetAllAndCreateUser(MethodView):
 
         return user
 
+    @jwt_required()
     @blp.response(200, UserSchema(many=True))
     def get(self):
         return UserModel.query.filter(UserModel.is_deleted == False).all()
@@ -89,6 +92,7 @@ class GetUpdateSoftAndHardDeleteRecoverUser(MethodView):
 
         return user
 
+    @jwt_required()
     @blp.response(
         202,
         description="Пользователь будет удален в мягкой форме, если будет найден и если не была уже удален.",
@@ -96,6 +100,12 @@ class GetUpdateSoftAndHardDeleteRecoverUser(MethodView):
     )
     @blp.alt_response(404, description="Пользователь не найден")
     def delete(self, user_id):
+        access_list = ["HR", "owner", "admin"]
+        role = get_jwt().get("role")
+
+        if role not in access_list:
+            abort(403, message="У вас нет доступа для удаления пользователей.")
+
         user = UserModel.query.get_or_404(user_id)
 
         if user.is_deleted:
@@ -158,3 +168,18 @@ class UserLogin(MethodView):
             return {"access_token": access_token}, 200
 
         abort(401, message="Неправильный логин или пароль.")
+
+
+@blp.route("/logout")
+class UserLogout(MethodView):
+    @jwt_required()
+    def post(self):
+        jti = get_jwt()["jti"]
+        new_blocked_jti = BlocklistModel(jti=jti)
+
+        try:
+            db.session.add(new_blocked_jti)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            abort(500, message=str(e))
+        return {"message": "Вы вышли из учетной записи. / Successfully logged out."}
