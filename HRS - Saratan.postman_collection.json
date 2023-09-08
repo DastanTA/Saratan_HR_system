@@ -605,7 +605,13 @@
 					"name": "/role : Get all non deleted roles",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NDE4NDcwMSwianRpIjoiYWYzODI4OWEtY2U3My00ZThlLTg5YTQtZDk1ZTUyN2U3MTFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6OCwibmJmIjoxNjk0MTg0NzAxLCJleHAiOjE2OTQyNzExMDEsInJvbGUiOiJFbXBseWVlIn0.R1FThSmFiDj54q2Ks0YCdkWdfOjH7b8iqo1KQIv0kVc",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_url}}/role",
 							"host": [
@@ -614,7 +620,8 @@
 							"path": [
 								"role"
 							]
-						}
+						},
+						"description": "```\naccess_list = [\"Owner\", \"admin\", \"HR\", \"Project Manager\", \"Project Manager Assistant\"]\n\n ```"
 					},
 					"response": []
 				},
@@ -622,10 +629,16 @@
 					"name": "/role : Create a role",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NDE4MjQ2NiwianRpIjoiNzIyMjkyODEtMGZiYS00NTA2LWIxNTEtMzU0MmIwYjU3ZjhjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTEsIm5iZiI6MTY5NDE4MjQ2NiwiZXhwIjoxNjk0MjY4ODY2LCJyb2xlIjoiT3duZXIifQ.wwQ8GVPQBq_Jlu8AZ348m5PVTQmX6DOteugiizxfo_g",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Project Manager Asssistant\",\r\n    \"description\": \"Assistant of the Project Manager. Has access almost like of Project manager, except some minor limitations.\"\r\n}",
+							"raw": "{\r\n    \"name\": \"admin\",\r\n    \"description\": \"software developer`s role\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -640,7 +653,8 @@
 							"path": [
 								"role"
 							]
-						}
+						},
+						"description": "```\naccess_list = [\"Owner\", \"admin\"]\n\n ```"
 					},
 					"response": []
 				},
@@ -648,17 +662,24 @@
 					"name": "/role/<role_id> : Get a role",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NDE4MzgzMCwianRpIjoiYzQ4NTQwYzQtMjg5Ni00OGM3LTk5ZTctMjU1YzVhZjZkZWE4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6OCwibmJmIjoxNjk0MTgzODMwLCJleHAiOjE2OTQyNzAyMzAsInJvbGUiOiJFbXBseWVlIn0.rRm5gnGPZr8zQLUn2uIv0WwJPGfZvymjFntLM9Qx3fg",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{base_url}}/role/1",
+							"raw": "{{base_url}}/role/3",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"role",
-								"1"
+								"3"
 							]
-						}
+						},
+						"description": "```\naccess_list = [\"Owner\", \"admin\", \"HR\", \"Project Manager\", \"Project Manager Assistant\"]\n\n ```"
 					},
 					"response": []
 				},
@@ -666,7 +687,13 @@
 					"name": "/role/<role_id> : Update a role",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NDE4NDcwMSwianRpIjoiYWYzODI4OWEtY2U3My00ZThlLTg5YTQtZDk1ZTUyN2U3MTFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6OCwibmJmIjoxNjk0MTg0NzAxLCJleHAiOjE2OTQyNzExMDEsInJvbGUiOiJFbXBseWVlIn0.R1FThSmFiDj54q2Ks0YCdkWdfOjH7b8iqo1KQIv0kVc",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"name\": \"Emplyee\",\r\n    \"description\": \"Can see information only about himself and some details of projects and channels related to him.\"\r\n}",
@@ -685,7 +712,8 @@
 								"role",
 								"1"
 							]
-						}
+						},
+						"description": "```\naccess_list = [\"Owner\", \"admin\"]\n\n ```\n\nresponse example:\n\n{  \n\"created_at\": \"2023-08-27T11:31:42.288690\",  \n\"description\": \"Can see information only about himself and some details of projects and channels related to him.\",  \n\"id\": 1,  \n\"name\": \"Emplyee\",  \n\"updated_at\": \"2023-09-06T14:54:30.476635\",  \n\"users\": \\[  \n{  \n\"basic_profession\": \"artist\",  \n\"email\": \"[burulai@gmail.com](https://mailto:burulai@gmail.com)\",  \n\"first_name\": \"Бурулай\",  \n\"id\": 8,  \n\"last_name\": \"Муратова\",  \n\"middle_name\": null,  \n\"notes\": null,  \n\"password\": \"$pbkdf2-sha256$29000$EgKgdM75XyslhHDu3fs/5w$cZ9GkfHIUFl7nyd/fx4SOEMXYyDpVdES6oGZKePbw40\",  \n\"phone\": \"+996555123450\",  \n\"role_id\": 1,  \n\"username\": \"Burulai_M\"  \n}  \n\\]  \n}\n\nЕсли нет доступа:\n\n{  \n\"code\": 403,  \n\"message\": \"У вас нет доступа для редактирования роли.\",  \n\"status\": \"Forbidden\"  \n}"
 					},
 					"response": []
 				},
@@ -693,7 +721,13 @@
 					"name": "/role/<role_id> : Soft delete a role",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NDE4NDcwMSwianRpIjoiYWYzODI4OWEtY2U3My00ZThlLTg5YTQtZDk1ZTUyN2U3MTFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6OCwibmJmIjoxNjk0MTg0NzAxLCJleHAiOjE2OTQyNzExMDEsInJvbGUiOiJFbXBseWVlIn0.R1FThSmFiDj54q2Ks0YCdkWdfOjH7b8iqo1KQIv0kVc",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_url}}/role/3",
 							"host": [
@@ -703,7 +737,8 @@
 								"role",
 								"3"
 							]
-						}
+						},
+						"description": "```\naccess_list = [\"Owner\", \"admin\"]\n\n ```"
 					},
 					"response": []
 				},
@@ -711,7 +746,13 @@
 					"name": "/role/<role_id> : Recover a deleted role",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NDE4NDcwMSwianRpIjoiYWYzODI4OWEtY2U3My00ZThlLTg5YTQtZDk1ZTUyN2U3MTFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6OCwibmJmIjoxNjk0MTg0NzAxLCJleHAiOjE2OTQyNzExMDEsInJvbGUiOiJFbXBseWVlIn0.R1FThSmFiDj54q2Ks0YCdkWdfOjH7b8iqo1KQIv0kVc",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_url}}/role/3",
 							"host": [
@@ -721,7 +762,8 @@
 								"role",
 								"3"
 							]
-						}
+						},
+						"description": "```\naccess_list = [\"Owner\", \"admin\"]\n\n ```"
 					},
 					"response": []
 				},
@@ -729,7 +771,13 @@
 					"name": "/role/hard_delete/<role_id> : Hard delete a role",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NDE4NDcwMSwianRpIjoiYWYzODI4OWEtY2U3My00ZThlLTg5YTQtZDk1ZTUyN2U3MTFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6OCwibmJmIjoxNjk0MTg0NzAxLCJleHAiOjE2OTQyNzExMDEsInJvbGUiOiJFbXBseWVlIn0.R1FThSmFiDj54q2Ks0YCdkWdfOjH7b8iqo1KQIv0kVc",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_url}}/role/hard_delete/3",
 							"host": [
@@ -740,7 +788,8 @@
 								"hard_delete",
 								"3"
 							]
-						}
+						},
+						"description": "```\naccess_list = [\"Owner\", \"admin\"]\n\n ```"
 					},
 					"response": []
 				}
@@ -917,7 +966,7 @@
 								"user"
 							]
 						},
-						"description": "```\naccess_list = [\"HR\", \"owner\", \"admin\", \"Project Manager\", \"Project Manager Assistant\"]\n\n ```"
+						"description": "```\naccess_list = [\"HR\", \"Owner\", \"admin\", \"Project Manager\", \"Project Manager Assistant\"]\n\n ```"
 					},
 					"response": []
 				},
@@ -950,7 +999,7 @@
 								"user"
 							]
 						},
-						"description": "```\naccess_list = [\"HR\", \"owner\", \"admin\"]\n\n ```"
+						"description": "```\naccess_list = [\"HR\", \"Owner\", \"admin\"]\n\n ```"
 					},
 					"response": []
 				},
@@ -961,21 +1010,21 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NDE4MDAyNiwianRpIjoiNDdmNmI4ZmEtNDJhYy00Y2M2LWE3MDEtZTVmMjg5YWMyZTkxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTIsIm5iZiI6MTY5NDE4MDAyNiwiZXhwIjoxNjk0MjY2NDI2LCJyb2xlIjoiRW1wbHllZSJ9.j9RS6TJ0yZgBPj_bxzPRG8D096CjuLGHwx4CD19BIZI",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NDE4MzAwMywianRpIjoiYzRhMWE1YTgtZTcwZC00OWQ0LThkNjktMzUzYjliNTUyMDI5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6OCwibmJmIjoxNjk0MTgzMDAzLCJleHAiOjE2OTQyNjk0MDMsInJvbGUiOiJFbXBseWVlIn0.VswpXjNcsULi6fM83MRZNfjy4yroDvbBeBCK9Z069O0",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/user/12",
+							"raw": "{{base_url}}/user/8",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"user",
-								"12"
+								"8"
 							]
 						},
-						"description": "```\naccess_list = [\"HR\", \"owner\", \"admin\", \"Project Manager\", \"Project Manager Assistant\"]\n\n ```"
+						"description": "```\naccess_list = [\"HR\", \"Owner\", \"admin\", \"Project Manager\", \"Project Manager Assistant\"]\n\n ```"
 					},
 					"response": []
 				},
@@ -1003,7 +1052,7 @@
 								"2"
 							]
 						},
-						"description": "```\naccess_list = [\"HR\", \"owner\", \"admin\", \"Project Manager\", \"Project Manager Assistant\"]\n\n ```"
+						"description": "```\naccess_list = [\"HR\", \"Owner\", \"admin\", \"Project Manager\", \"Project Manager Assistant\"]\n\n ```"
 					},
 					"response": []
 				},
@@ -1028,7 +1077,7 @@
 								"12"
 							]
 						},
-						"description": "```\naccess_list = [\"HR\", \"Owner\"]\n\n ```"
+						"description": "```\naccess_list = [\"HR\", \"Owner\", \"admin\"]\n\n ```"
 					},
 					"response": []
 				},
@@ -1047,7 +1096,7 @@
 								"5"
 							]
 						},
-						"description": "```\naccess_list = [\"HR\", \"Owner\"]\n\n ```"
+						"description": "```\naccess_list = [\"HR\", \"Owner\", \"admin\"]\n\n ```"
 					},
 					"response": []
 				},
@@ -1073,7 +1122,7 @@
 								"12"
 							]
 						},
-						"description": "```\naccess_list = [\"Owner\"]\n\n ```"
+						"description": "```\naccess_list = [\"Owner\", \"admin\"]\n\n ```"
 					},
 					"response": []
 				},
@@ -1084,7 +1133,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"Malik\",\r\n    \"password\": \"Malik\"\r\n}",
+							"raw": "{\r\n    \"username\": \"Burulai_M\",\r\n    \"password\": \"Burulai_M\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
