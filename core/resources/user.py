@@ -2,7 +2,7 @@ from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError
 from passlib.hash import pbkdf2_sha256
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt, get_jwt_identity
 
 from core.db import db
 from core.schemas import PlainUserSchema, UserSchema, UserUpdateSchema, UserLoginSchema
@@ -48,27 +48,50 @@ class GetAllAndCreateUser(MethodView):
     @jwt_required()
     @blp.response(200, UserSchema(many=True))
     def get(self):
+        jwt = get_jwt()
+        role = jwt.get("role")
+        access_list = ["HR", "owner", "admin", "Project Manager", "Project Manager Assistant"]
+
+        if role not in access_list:
+            abort(403, message="У вас нет доступа для просмотра всех пользователей.")
+
         return UserModel.query.filter(UserModel.is_deleted == False).all()
 
 
 @blp.route("/user/<int:user_id>")
 class GetUpdateSoftAndHardDeleteRecoverUser(MethodView):
+    @jwt_required()
     @blp.response(200, UserSchema)
     def get(self, user_id):
-        user = UserModel.query.get_or_404(user_id)
+        jwt = get_jwt()
+        role = jwt.get("role")
+        access_list = ["HR", "owner", "admin", "Project Manager", "Project Manager Assistant"]
+        accessing_user_id = get_jwt_identity()
 
-        if user.is_deleted:
-            abort(400, message="Пользватель удален. Обратитесь к админу.")
+        if role in access_list or accessing_user_id == user_id:
+            user = UserModel.query.get_or_404(user_id)
+            if user.is_deleted:
+                abort(400, message="Пользватель удален. Обратитесь к админу.")
+        else:
+            abort(403, message="У вас нет доступа для просмотра данного пользователя.")
 
         return user
 
+    @jwt_required()
     @blp.arguments(UserUpdateSchema)
     @blp.response(200, UserSchema)
     def put(self, user_data, user_id):
+        jwt = get_jwt()
+        role = jwt.get("role")
+        access_list = ["HR", "owner", "admin", "Project Manager", "Project Manager Assistant"]
+
+        if role not in access_list:
+            abort(403, message="У вас нет доступа для редактирования данных пользователей.")
+
         user = UserModel.query.get_or_404(user_id)
 
         if user.is_deleted:
-            abort(400, message="Пользватель удален. Обратитесь к админу.")
+            abort(400, message="Пользватель удален. Обратитесь к админу/HR.")
 
         if user:
             user.username = user_data.get("username"),
@@ -100,7 +123,7 @@ class GetUpdateSoftAndHardDeleteRecoverUser(MethodView):
     )
     @blp.alt_response(404, description="Пользователь не найден")
     def delete(self, user_id):
-        access_list = ["HR", "owner", "admin"]
+        access_list = ["HR", "Owner"]
         role = get_jwt().get("role")
 
         if role not in access_list:
@@ -121,8 +144,15 @@ class GetUpdateSoftAndHardDeleteRecoverUser(MethodView):
 
         return {"message": f"Пользователь '{user.username}' удален(мягко)."}
 
+    @jwt_required()
     @blp.response(200, UserSchema)
     def post(self, user_id):
+        access_list = ["HR", "Owner"]
+        role = get_jwt().get("role")
+
+        if role not in access_list:
+            abort(403, message="У вас нет доступа для восстановления пользователей.")
+
         user = UserModel.query.get_or_404(user_id)
 
         if not user.is_deleted:
@@ -140,12 +170,19 @@ class GetUpdateSoftAndHardDeleteRecoverUser(MethodView):
 
 @blp.route("/user/hard_delete/<int:user_id>")
 class HardDeleteUser(MethodView):
+    @jwt_required()
     @blp.response(
         202,
         description="Пользователь будет удален безвозвратно, если будет найден.",
         example={"message": "Пользователь был удален безвозвратно."}
     )
     def delete(self, user_id):
+        access_list = ["Owner"]
+        role = get_jwt().get("role")
+
+        if role not in access_list:
+            abort(403, message="У вас нет доступа для безвозвратного удаления пользователей из базы!")
+
         user = UserModel.query.get_or_404(user_id)
 
         try:
