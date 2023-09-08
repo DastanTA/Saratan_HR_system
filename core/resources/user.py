@@ -19,7 +19,7 @@ class GetAllAndCreateUser(MethodView):
     def post(self, user_data):
         jwt = get_jwt()
         role = jwt.get("role")
-        access_list = ["HR", "owner", "admin"]
+        access_list = ["HR", "Owner", "admin"]
 
         if role not in access_list:
             abort(403, message="У вас нет доступа для регистрации нового пользователя.")
@@ -50,7 +50,7 @@ class GetAllAndCreateUser(MethodView):
     def get(self):
         jwt = get_jwt()
         role = jwt.get("role")
-        access_list = ["HR", "owner", "admin", "Project Manager", "Project Manager Assistant"]
+        access_list = ["HR", "Owner", "admin", "Project Manager", "Project Manager Assistant"]
 
         if role not in access_list:
             abort(403, message="У вас нет доступа для просмотра всех пользователей.")
@@ -65,7 +65,7 @@ class GetUpdateSoftAndHardDeleteRecoverUser(MethodView):
     def get(self, user_id):
         jwt = get_jwt()
         role = jwt.get("role")
-        access_list = ["HR", "owner", "admin", "Project Manager", "Project Manager Assistant"]
+        access_list = ["HR", "Owner", "admin", "Project Manager", "Project Manager Assistant"]
         accessing_user_id = get_jwt_identity()
 
         if role in access_list or accessing_user_id == user_id:
@@ -83,7 +83,7 @@ class GetUpdateSoftAndHardDeleteRecoverUser(MethodView):
     def put(self, user_data, user_id):
         jwt = get_jwt()
         role = jwt.get("role")
-        access_list = ["HR", "owner", "admin", "Project Manager", "Project Manager Assistant"]
+        access_list = ["HR", "Owner", "admin", "Project Manager", "Project Manager Assistant"]
 
         if role not in access_list:
             abort(403, message="У вас нет доступа для редактирования данных пользователей.")
@@ -123,7 +123,7 @@ class GetUpdateSoftAndHardDeleteRecoverUser(MethodView):
     )
     @blp.alt_response(404, description="Пользователь не найден")
     def delete(self, user_id):
-        access_list = ["HR", "Owner"]
+        access_list = ["HR", "Owner", "admin"]
         role = get_jwt().get("role")
 
         if role not in access_list:
@@ -147,7 +147,7 @@ class GetUpdateSoftAndHardDeleteRecoverUser(MethodView):
     @jwt_required()
     @blp.response(200, UserSchema)
     def post(self, user_id):
-        access_list = ["HR", "Owner"]
+        access_list = ["HR", "Owner", "admin"]
         role = get_jwt().get("role")
 
         if role not in access_list:
@@ -177,7 +177,7 @@ class HardDeleteUser(MethodView):
         example={"message": "Пользователь был удален безвозвратно."}
     )
     def delete(self, user_id):
-        access_list = ["Owner"]
+        access_list = ["Owner", "admin"]
         role = get_jwt().get("role")
 
         if role not in access_list:
